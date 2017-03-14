@@ -30,7 +30,7 @@ namespace ToDoList.Data.EFRepository
 
         public IEnumerable<T> GetAll()
         {
-            return DbSet.ToList();
+            return DbSet;
         }
 
         public T GetById(object id)
