@@ -180,10 +180,9 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\NinjectModules\RepositoryModel.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -191,10 +190,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -267,6 +264,10 @@
     <ProjectReference Include="..\ToDoList.Auth\ToDoList.Auth.csproj">
       <Project>{A13ED1A6-3B6F-4B03-A3D1-372CD77D4CBC}</Project>
       <Name>ToDoList.Auth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ToDoList.Data\ToDoList.Data.csproj">
+      <Project>{D0F3F6A0-5E47-458D-9798-1B96498A34B8}</Project>
+      <Name>ToDoList.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToDoList.Models\ToDoList.Models.csproj">
       <Project>{167e2507-de97-4d78-a17a-aac548833ff5}</Project>
