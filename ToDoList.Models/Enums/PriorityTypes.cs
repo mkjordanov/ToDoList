@@ -1,6 +1,6 @@
-﻿namespace ToDoList.Models
+﻿namespace ToDoList.Models.Enums
 {
-    public enum Priorities
+    public enum PriorityTypes
     {
         Lowest,
         Low,

@@ -1,4 +1,5 @@
 ﻿using System;
+using ToDoList.Models.Enums;
 
 namespace ToDoList.Models.Contracts
 {
@@ -7,8 +8,9 @@ namespace ToDoList.Models.Contracts
         Guid Id { get; set; }
         string Task { get; set; }
         ToDoListModel ToDoList { get; set; }
-        Categories Category{ get; set; }
-        Priorities Priority { get; set; }
+        CategoryTypes Category{ get; set; }
+        PriorityTypes Priority { get; set; }
+        bool IsDone { get; set; }
         DateTime ExpirationDate { get; set; }
     }
 }

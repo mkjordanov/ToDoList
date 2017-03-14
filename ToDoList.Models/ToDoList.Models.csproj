@@ -58,10 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationUser.cs" />
-    <Compile Include="Categories.cs" />
+    <Compile Include="Enums\CategoryTypes.cs" />
     <Compile Include="Contracts\IToDoList.cs" />
     <Compile Include="Contracts\IToDoListTask.cs" />
-    <Compile Include="Priorities.cs" />
+    <Compile Include="Enums\PriorityTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToDoListModel.cs" />
     <Compile Include="ToDoListTask.cs" />
