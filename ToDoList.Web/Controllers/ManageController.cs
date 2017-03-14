@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -7,7 +6,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ToDoList.Auth;
-using ToDoList.Web.Models.AccountViewModels;
 using ToDoList.Web.Models.ManageViewModels;
 
 namespace ToDoList.Web.Controllers
@@ -15,14 +13,14 @@ namespace ToDoList.Web.Controllers
     [Authorize]
     public class ManageController : Controller
     {
-        private ToDoList.Auth.ApplicationSignInManager _signInManager;
+        private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ToDoList.Auth.ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -32,7 +30,7 @@ namespace ToDoList.Web.Controllers
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ToDoList.Auth.ApplicationSignInManager>();
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
             private set 
             { 
