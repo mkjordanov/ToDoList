@@ -6,8 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using ToDoList.Web.Models;
 using ToDoList.Auth;
+using ToDoList.Web.Models.AccountViewModels;
+using ToDoList.Web.Models.ManageViewModels;
 
 namespace ToDoList.Web.Controllers
 {

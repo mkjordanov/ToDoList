@@ -8,6 +8,7 @@ using Microsoft.Owin.Security;
 using ToDoList.Web.Models;
 using ToDoList.Auth;
 using ToDoList.Models;
+using ToDoList.Web.Models.AccountViewModels;
 
 namespace ToDoList.Web.Controllers
 {
