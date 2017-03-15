@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList.Data", "ToDoList.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoList.Auth", "ToDoList.Auth\ToDoList.Auth.csproj", "{A13ED1A6-3B6F-4B03-A3D1-372CD77D4CBC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{06FE8D1C-7DC5-4E03-8A0F-A0BFFA26158C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{151E9442-FC40-4638-8BE8-97F2FFC0F7AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +43,16 @@ Global
 		{A13ED1A6-3B6F-4B03-A3D1-372CD77D4CBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A13ED1A6-3B6F-4B03-A3D1-372CD77D4CBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A13ED1A6-3B6F-4B03-A3D1-372CD77D4CBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{151E9442-FC40-4638-8BE8-97F2FFC0F7AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{151E9442-FC40-4638-8BE8-97F2FFC0F7AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{151E9442-FC40-4638-8BE8-97F2FFC0F7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{151E9442-FC40-4638-8BE8-97F2FFC0F7AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CF2FD3DF-9342-43BC-9336-6B8D81EE67AA} = {06FE8D1C-7DC5-4E03-8A0F-A0BFFA26158C}
+		{151E9442-FC40-4638-8BE8-97F2FFC0F7AD} = {06FE8D1C-7DC5-4E03-8A0F-A0BFFA26158C}
 	EndGlobalSection
 EndGlobal
