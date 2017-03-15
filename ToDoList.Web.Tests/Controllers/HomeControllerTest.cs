@@ -15,5 +15,10 @@ namespace ToDoList.Web.Tests.Controllers
         {
             Assert.IsTrue(true);
         }
+        [Test]
+        public void SampleTest3()
+        {
+            Assert.IsTrue(true);
+        }
     }
 }
