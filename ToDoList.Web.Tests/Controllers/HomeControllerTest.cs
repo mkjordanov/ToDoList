@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ToDoList.Web;
-using ToDoList.Web.Controllers;
+﻿using NUnit.Framework;
 
 namespace ToDoList.Web.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class HomeControllerTest
     {
-       
+       [Test]
+       public void SampleTest()
+        {
+            Assert.IsTrue(true);
+        }
     }
 }
