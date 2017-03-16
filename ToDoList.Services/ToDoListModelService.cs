@@ -9,13 +9,13 @@ using ToDoList.Services.Contracts;
 
 namespace ToDoList.Services
 {
-    public class ToDoListViewModelService : IToDoListModelService
+    public class ToDoListModelService : IToDoListModelService
     {
         private readonly IEFGenericRepository<ToDoListModel> toDoListModelService;
         private readonly IEFGenericRepository<ApplicationUser> userService;
         private readonly IUnitOfWork unitOfWork;
 
-        public ToDoListViewModelService(IEFGenericRepository<ToDoListModel> toDoListModelService, IEFGenericRepository<ApplicationUser> userService, IUnitOfWork unitOfWork)
+        public ToDoListModelService(IEFGenericRepository<ToDoListModel> toDoListModelService, IEFGenericRepository<ApplicationUser> userService, IUnitOfWork unitOfWork)
         {
             Guard.WhenArgument(toDoListModelService, "ToDoListModelService").IsNull().Throw();
             Guard.WhenArgument(userService, "userService").IsNull().Throw();

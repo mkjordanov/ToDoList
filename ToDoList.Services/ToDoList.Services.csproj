@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IToDoListModelService.cs" />
-    <Compile Include="ToDoListViewModelService.cs" />
+    <Compile Include="ToDoListModelService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
