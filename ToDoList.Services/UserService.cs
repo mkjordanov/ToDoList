@@ -1,0 +1,46 @@
+﻿using Bytes2you.Validation;
+using System.Collections.Generic;
+using ToDoList.Data.EFRepository;
+using ToDoList.Data.UnitOfWork;
+using ToDoList.Models;
+using ToDoList.Services.Contracts;
+
+namespace ToDoList.Services
+{
+    public class UserService : IUserService
+    {
+        private readonly IEFGenericRepository<ApplicationUser> userRepository;
+        private readonly IUnitOfWork unitOfWork;
+        public UserService(IEFGenericRepository<ApplicationUser> userRepository, IUnitOfWork unitOfWork)
+        {
+            Guard.WhenArgument(userRepository, "User repository").IsNull().Throw();
+            Guard.WhenArgument(unitOfWork, "Unit of work").IsNull().Throw();
+
+            this.userRepository = userRepository;
+            this.unitOfWork = unitOfWork;
+        }
+        public void DeleteUser(ApplicationUser user)
+        {
+            Guard.WhenArgument(user, "User").IsNull().Throw();
+            this.userRepository.Delete(user);
+            this.unitOfWork.Commit();
+        }
+
+        public IEnumerable<ApplicationUser> GetAllUsers()
+        {
+            return this.userRepository.GetAll();
+        }
+
+        public ApplicationUser GetUserById(object id)
+        {
+            Guard.WhenArgument(id, "id").IsNull().Throw();
+            var searchedUser = this.userRepository.GetById(id);
+            return searchedUser;
+        }
+
+        //public void UpdateUser(ApplicationUser user)
+        //{
+        //    throw new NotImplementedException();
+        //}
+    }
+}
