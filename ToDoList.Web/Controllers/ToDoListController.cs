@@ -10,6 +10,7 @@ using ToDoList.Models.Enums;
 
 namespace ToDoList.Web.Controllers
 {
+    [Authorize]
     public class ToDoListController : Controller
     {
         private readonly IToDoListModelService toDoListModelService;
