@@ -51,7 +51,7 @@ namespace ToDoList.Services
 
         public IEnumerable<ToDoListModel> GetAll()
         {
-            return this.toDoListModelService.GetAll();
+            return this.toDoListModelService.All;
         }
 
         public IEnumerable<ToDoListModel> GetAllByUser(object id)

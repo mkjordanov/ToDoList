@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System;
 
 namespace ToDoList.Data.EFRepository
 {
@@ -13,6 +14,15 @@ namespace ToDoList.Data.EFRepository
             this.Context = context;
             this.DbSet = context.Set<T>();
         }
+
+        public IQueryable<T> All
+        {
+            get
+            {
+                return this.DbSet;
+            }
+        }
+
         protected DbContext Context { get; set; }
         protected DbSet<T> DbSet { get; set; }
         public void Add(T entity)
@@ -26,11 +36,6 @@ namespace ToDoList.Data.EFRepository
         {
             var entry = this.Context.Entry(entity);
             entry.State = EntityState.Deleted;
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            return DbSet;
         }
 
         public T GetById(object id)

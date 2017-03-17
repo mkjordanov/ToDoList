@@ -8,7 +8,7 @@ namespace ToDoList.Data.EFRepository
 {
     public interface IEFGenericRepository<T> where T:class
     {
-        IEnumerable<T> GetAll();
+        IQueryable<T> All { get; }
         T GetById(object id);
 
         void Add(T entity);

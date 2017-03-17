@@ -28,7 +28,7 @@ namespace ToDoList.Services
 
         public IEnumerable<ApplicationUser> GetAllUsers()
         {
-            return this.userRepository.GetAll();
+            return this.userRepository.All;
         }
 
         public ApplicationUser GetUserById(object id)
