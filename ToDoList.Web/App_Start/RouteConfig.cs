@@ -18,6 +18,11 @@ namespace ToDoList.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+               name: "Create",
+               url: "{controller}/{action}/{name}/{public}/{category}",
+               defaults: new { controller = "ToDoList", action = "Create"}
+           );
         }
     }
 }

@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+@model List<SelectListItem>
+<h2>Create</h2>
+@using (Html.BeginForm())
+{
+    @Html.TextBox("name","");
+    <br>
+    @Html.CheckBox("ispublic",false);
+    @Html.Label("ispublic", "public");
+    <br>
+    @Html.DropDownList("category",@Model)
+    <input type="submit" name="submit" value="submit" />
+}

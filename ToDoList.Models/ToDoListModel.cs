@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using ToDoList.Models.Contracts;
 using ToDoList.Models.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToDoList.Models
 {
@@ -14,7 +15,8 @@ namespace ToDoList.Models
         {
             this.tasks = new HashSet<ToDoListTask>();
         }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         [Required]
         [MaxLength(100)]

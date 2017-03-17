@@ -81,8 +81,11 @@ namespace ToDoList.Auth.Migrations
                 "dbo.ToDoListModels",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Guid(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 100),
                         Date = c.DateTime(nullable: false),
+                        Category = c.Int(nullable: false),
+                        IsPublic = c.Boolean(nullable: false),
                         ApplicationUserId_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
@@ -93,11 +96,12 @@ namespace ToDoList.Auth.Migrations
                 "dbo.ToDoListTasks",
                 c => new
                     {
-                        Id = c.Guid(nullable: false),
+                        Id = c.Guid(nullable: false, identity: true),
+                        Task = c.String(nullable: false, maxLength: 100),
                         Category = c.Int(nullable: false),
                         ExpirationDate = c.DateTime(nullable: false),
                         Priority = c.Int(nullable: false),
-                        Task = c.String(),
+                        IsDone = c.Boolean(nullable: false),
                         ToDoList_Id = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)

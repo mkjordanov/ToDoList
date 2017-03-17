@@ -72,6 +72,18 @@
     <Compile Include="Migrations\201703161320566_init3.Designer.cs">
       <DependentUpon>201703161320566_init3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703171409106_Db autogenerates ids for toDoLists.cs" />
+    <Compile Include="Migrations\201703171409106_Db autogenerates ids for toDoLists.Designer.cs">
+      <DependentUpon>201703171409106_Db autogenerates ids for toDoLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703171426473_Db autogenerates ids for toDoLists second try.cs" />
+    <Compile Include="Migrations\201703171426473_Db autogenerates ids for toDoLists second try.Designer.cs">
+      <DependentUpon>201703171426473_Db autogenerates ids for toDoLists second try.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703171447465_Added autogenerted ids for all models.cs" />
+    <Compile Include="Migrations\201703171447465_Added autogenerted ids for all models.Designer.cs">
+      <DependentUpon>201703171447465_Added autogenerted ids for all models.cs</DependentUpon>
+    </Compile>
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +106,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703161320566_init3.resx">
       <DependentUpon>201703161320566_init3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703171409106_Db autogenerates ids for toDoLists.resx">
+      <DependentUpon>201703171409106_Db autogenerates ids for toDoLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703171426473_Db autogenerates ids for toDoLists second try.resx">
+      <DependentUpon>201703171426473_Db autogenerates ids for toDoLists second try.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703171447465_Added autogenerted ids for all models.resx">
+      <DependentUpon>201703171447465_Added autogenerted ids for all models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

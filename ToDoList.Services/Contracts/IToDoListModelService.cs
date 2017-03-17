@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ToDoList.Data.EFRepository;
-using ToDoList.Data.UnitOfWork;
+﻿using System.Collections.Generic;
 using ToDoList.Models;
 using ToDoList.Models.Enums;
 
@@ -16,7 +10,7 @@ namespace ToDoList.Services.Contracts
 
         IEnumerable<ToDoListModel> GetAllByUser(object id);
 
-        void CreateToDoList(object userId, string name, bool isPublic, CategoryTypes category);
+        void CreateToDoList(object userId, string name, bool isPublic, CategoryTypes category = CategoryTypes.General);
 
         void DeleteToDoList(object toDoListId);
 

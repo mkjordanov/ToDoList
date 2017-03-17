@@ -93,17 +93,9 @@
     <Compile Include="ApplicationSignInManager.cs" />
     <Compile Include="ApplicationUserManager.cs" />
     <Compile Include="EmailService.cs" />
-    <Compile Include="Migrations\201703131139085_init.cs" />
-    <Compile Include="Migrations\201703131139085_init.Designer.cs">
-      <DependentUpon>201703131139085_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703141231027_updated database.cs" />
-    <Compile Include="Migrations\201703141231027_updated database.Designer.cs">
-      <DependentUpon>201703141231027_updated database.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703141241213_updated ToDoListModel with public prop.cs" />
-    <Compile Include="Migrations\201703141241213_updated ToDoListModel with public prop.Designer.cs">
-      <DependentUpon>201703141241213_updated ToDoListModel with public prop.cs</DependentUpon>
+    <Compile Include="Migrations\201703171454179_init.cs" />
+    <Compile Include="Migrations\201703171454179_init.Designer.cs">
+      <DependentUpon>201703171454179_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,14 +117,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703131139085_init.resx">
-      <DependentUpon>201703131139085_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703141231027_updated database.resx">
-      <DependentUpon>201703141231027_updated database.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703141241213_updated ToDoListModel with public prop.resx">
-      <DependentUpon>201703141241213_updated ToDoListModel with public prop.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703171454179_init.resx">
+      <DependentUpon>201703171454179_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,5 @@
 ﻿using Bytes2you.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ToDoList.Data.EFRepository;
@@ -25,7 +26,7 @@ namespace ToDoList.Services
             this.userService = userService;
             this.unitOfWork = unitOfWork;
         }
-        public void CreateToDoList(object userId, string name, bool isPublic, CategoryTypes category)
+        public void CreateToDoList(object userId, string name, bool isPublic, CategoryTypes category=CategoryTypes.General)
         {
             Guard.WhenArgument(userId, "userId").IsNull().Throw();
             Guard.WhenArgument(name, "name").IsNullOrEmpty().Throw();
@@ -34,11 +35,13 @@ namespace ToDoList.Services
             {
                 Name = name,
                 IsPublic = isPublic,
-                Category = category
+                Category = category,
+                Date = DateTime.Now
             };
 
             var user = userService.GetById(userId);
             user.ToDoLists.Add(listToBeAdded);
+            unitOfWork.Commit();
         }
 
         public void DeleteToDoList(object ToDoListId)
@@ -47,6 +50,7 @@ namespace ToDoList.Services
 
             var listToBeDeleted=this.toDoListModelService.GetById(ToDoListId);
             this.toDoListModelService.Delete(listToBeDeleted);
+            unitOfWork.Commit();
         }
 
         public IEnumerable<ToDoListModel> GetAll()
@@ -63,6 +67,7 @@ namespace ToDoList.Services
         public void UpdateToDoList(ToDoListModel toDoList)
         {
             this.toDoListModelService.Update(toDoList);
+            unitOfWork.Commit();
         }
     }
 }

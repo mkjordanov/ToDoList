@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using ToDoList.Models.Contracts;
 using ToDoList.Models.Enums;
 
@@ -7,6 +8,8 @@ namespace ToDoList.Models
 {
     public class ToDoListTask : IToDoListTask
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         [Required]
