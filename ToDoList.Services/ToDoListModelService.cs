@@ -12,7 +12,7 @@ namespace ToDoList.Services
 {
     public class ToDoListModelService : IToDoListModelService
     {
-        private readonly IEFGenericRepository<ToDoListModel> toDoListModelService;
+        private readonly IEFGenericRepository<ToDoListModel> toDoListModelRepository;
         private readonly IEFGenericRepository<ApplicationUser> userService;
         private readonly IUnitOfWork unitOfWork;
 
@@ -22,7 +22,7 @@ namespace ToDoList.Services
             Guard.WhenArgument(userService, "userService").IsNull().Throw();
             Guard.WhenArgument(unitOfWork, "Unit of Work").IsNull().Throw();
 
-            this.toDoListModelService = toDoListModelService;
+            this.toDoListModelRepository = toDoListModelService;
             this.userService = userService;
             this.unitOfWork = unitOfWork;
         }
@@ -44,21 +44,25 @@ namespace ToDoList.Services
             unitOfWork.Commit();
         }
 
+        public ToDoListModel GetListById(object id)
+        {
+           return this.toDoListModelRepository.GetById(id);
+        }
         public void DeleteToDoList(object ToDoListId)
         {
             Guard.WhenArgument(ToDoListId, "ToDoListId").IsNull().Throw();
 
-            var listToBeDeleted=this.toDoListModelService.GetById(ToDoListId);
-            this.toDoListModelService.Delete(listToBeDeleted);
+            var listToBeDeleted=this.toDoListModelRepository.GetById(ToDoListId);
+            this.toDoListModelRepository.Delete(listToBeDeleted);
             unitOfWork.Commit();
         }
 
-        public IEnumerable<ToDoListModel> GetAll()
+        public IQueryable<ToDoListModel> GetAll()
         {
-            return this.toDoListModelService.All;
+            return this.toDoListModelRepository.All;
         }
 
-        public IEnumerable<ToDoListModel> GetAllByUser(object id)
+        public IQueryable<ToDoListModel> GetAllByUser(object id)
         {
             Guard.WhenArgument(id, "id").IsNull().Throw();
             return this.GetAll().Where(l => l.ApplicationUserId == id);
@@ -66,7 +70,7 @@ namespace ToDoList.Services
 
         public void UpdateToDoList(ToDoListModel toDoList)
         {
-            this.toDoListModelService.Update(toDoList);
+            this.toDoListModelRepository.Update(toDoList);
             unitOfWork.Commit();
         }
     }

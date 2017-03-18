@@ -14,10 +14,14 @@ namespace ToDoList.Web.Controllers
     public class ToDoListController : Controller
     {
         private readonly IToDoListModelService toDoListModelService;
-        public ToDoListController(IToDoListModelService toDoListModelService)
+        private readonly IUserService userService;
+        public ToDoListController(IToDoListModelService toDoListModelService, IUserService userService)
         {
             Guard.WhenArgument(toDoListModelService, "To-Do List service").IsNull().Throw();
+            Guard.WhenArgument(userService, "User service").IsNull().Throw();
+
             this.toDoListModelService = toDoListModelService;
+            this.userService = userService;
         }
         [HttpGet]
         public ActionResult Create()
@@ -45,5 +49,21 @@ namespace ToDoList.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public ActionResult ListsAndTasks()
+        {
+            var userId = User.Identity.GetUserId();
+            var currentUser = this.userService.GetUserById(userId);
+            //var currentUserLists = this.toDoListModelService.GetAllByUser(userId).ToList();
+            return this.View(currentUser.ToDoLists);
+        }
+
+        //[HttpGet]
+        //public ActionResult Tasks(string id)
+        //{
+        //    var selectedList=this.toDoListModelService.GetListById(Guid.Parse(id));
+        //    var selectedListTasks = selectedList.Tasks;
+        //    return this.View(selectedListTasks);
+        //}
     }
 }

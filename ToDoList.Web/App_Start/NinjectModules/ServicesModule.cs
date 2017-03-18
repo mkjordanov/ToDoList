@@ -14,6 +14,7 @@ namespace ToDoList.Web.App_Start.NinjectModules
         {
             this.Bind<IToDoListModelService>().To<ToDoListModelService>();
             this.Bind<IUserService>().To<UserService>();
+            this.Bind<IToDoListTaskService>().To<ToDoListTaskService>();
         }
     }
 }
