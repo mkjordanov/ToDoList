@@ -26,18 +26,17 @@ namespace ToDoList.Web.Controllers
         public ActionResult Index(string id)
         {
             var selectedList = this.toDoListModelService.GetListById(Guid.Parse(id));
-            var selectedListTasks = selectedList.Tasks;
             return this.View(selectedList);
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            return this.View(); 
+            return this.View();
         }
 
         [HttpPost]
-        public ActionResult Create(string id,string task, string category, string priority, string expirationDate)
+        public ActionResult Create(string id, string task, string category, string priority, string expirationDate)
         {
             var usedList = this.toDoListModelService.GetListById(Guid.Parse(id));
 
@@ -45,8 +44,8 @@ namespace ToDoList.Web.Controllers
             var taskPriority = Enum.Parse(typeof(PriorityTypes), priority);
             var taskExpirationDate = DateTime.Parse(expirationDate);
 
-            this.taskService.CreateTask(usedList,(CategoryTypes)taskCategory, (PriorityTypes)taskPriority, taskExpirationDate, task);
-            return RedirectToAction("ListsAndTasks","ToDoList");
+            this.taskService.CreateTask(usedList, (CategoryTypes)taskCategory, (PriorityTypes)taskPriority, taskExpirationDate, task);
+            return RedirectToAction("Index", "Task", new { id = id });
         }
     }
 }

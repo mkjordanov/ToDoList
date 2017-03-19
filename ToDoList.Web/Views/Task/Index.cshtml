@@ -7,56 +7,52 @@
 <h2>Tasks</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create",new { id= Model.Id})
+    @Html.ActionLink("Create New", "Create", new { id = Model.Id })
 </p>
 <table class="table">
     <tr>
         <th>
             Task
-            @*@Html.DisplayNameFor(model => model.Tasks..Task)*@
         </th>
         <th>
             Expiration Date
-           @* @Html.DisplayNameFor(model => model.Tasks.ExpirationDate)*@
         </th>
         <th>
             Compleated
-           @* @Html.DisplayNameFor(model => model.Tasks.IsDone)*@
         </th>
         <th>
             Category
-           @* @Html.DisplayNameFor(model => model.Tasks.Category)*@
         </th>
         <th>
             Priority
-            @*@Html.DisplayNameFor(model => model.Tasks.Priority)*@
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model.Tasks) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Task)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpirationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsDone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Priority)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.Tasks.Where(t => t.ExpirationDate > DateTime.Now))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Task)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpirationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

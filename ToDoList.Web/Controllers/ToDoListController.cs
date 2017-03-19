@@ -26,18 +26,7 @@ namespace ToDoList.Web.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var categoryList = new List<SelectListItem>()
-            {
-                new SelectListItem { Text = "General", Value = "General", Selected=true},
-                new SelectListItem { Text = "Personal", Value = "Personal"},
-                new SelectListItem { Text = "Shopping", Value = "Shopping"},
-                new SelectListItem { Text = "Work", Value = "Work"},
-                new SelectListItem { Text = "Errands", Value = "Errands"},
-                new SelectListItem { Text = "Entertainment", Value = "Entertainment"},
-                new SelectListItem { Text = "Hobbies", Value = "Hobbies"}
-            };
-           
-            return View(categoryList);
+            return View();
         }
         [HttpPost]
         public ActionResult Create(string name, bool isPublic, string category )
@@ -47,7 +36,7 @@ namespace ToDoList.Web.Controllers
 
             this.toDoListModelService.CreateToDoList(userId, name, isPublic,(CategoryTypes)selectedCategory);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("ListsAndTasks", "ToDoList");
         }
         [HttpGet]
         public ActionResult ListsAndTasks()
