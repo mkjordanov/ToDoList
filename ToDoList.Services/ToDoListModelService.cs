@@ -48,12 +48,11 @@ namespace ToDoList.Services
 
             return this.toDoListModelRepository.GetById(id);
         }
-        public void DeleteToDoList(object ToDoListId)
+        public void DeleteToDoList(ToDoListModel ToDoList)
         {
-            Guard.WhenArgument(ToDoListId, "ToDoListId").IsNull().Throw();
+            Guard.WhenArgument(ToDoList, "ToDoList").IsNull().Throw();
 
-            var listToBeDeleted = this.toDoListModelRepository.GetById(ToDoListId);
-            this.toDoListModelRepository.Delete(listToBeDeleted);
+            this.toDoListModelRepository.Delete(ToDoList);
             unitOfWork.Commit();
         }
 

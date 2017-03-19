@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 using ToDoList.Data.EFRepository;
 using ToDoList.Data.UnitOfWork;
 using ToDoList.Models;
+using ToDoList.Models.Contracts;
 
 namespace ToDoList.Web.Tests.Services.ToDoListModelService
 {
     [TestFixture]
-    public class GetListByIdShould
+    public class DeleteToDoListShould
     {
         [Test]
-        public void Thrown_WhenIdIsNull()
+        public void Throw_WhenToDoListIsNull()
         {
 
             //Arrange
@@ -29,30 +30,47 @@ namespace ToDoList.Web.Tests.Services.ToDoListModelService
 
             Assert.Throws<ArgumentNullException>(() =>
             {
-                toDoListModelService.GetListById(null);
+                toDoListModelService.DeleteToDoList(null);
             });
 
         }
 
         [Test]
-        public void CallRepositortGetById_OnlyOnce()
+        public void CallRepositortDelete_OnlyOnce()
         {
 
             //Arrange
             var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedToDoListModelRepository = new Mock<IEFGenericRepository<ToDoListModel>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
+            var mockedToDoList = new Mock<ToDoListModel>();
 
             var toDoListModelService = new ToDoList.Services.ToDoListModelService(mockedToDoListModelRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
-            var obj = "sample object";
             //Act
-            toDoListModelService.GetListById(obj);
+            toDoListModelService.DeleteToDoList(mockedToDoList.Object);
+
             //Assert
-            mockedToDoListModelRepository.Verify(r => r.GetById(It.IsAny<object>()), Times.Once);
+            mockedToDoListModelRepository.Verify(r => r.Delete(It.IsAny<ToDoListModel>()), Times.Once);
+        }
 
+        [Test]
+        public void CallUnitOfWorkCommit_OnlyOnce()
+        {
 
+            //Arrange
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
+            var mockedToDoListModelRepository = new Mock<IEFGenericRepository<ToDoListModel>>();
+            var mockedUnitOfWork = new Mock<IUnitOfWork>();
+            var mockedToDoList = new Mock<ToDoListModel>();
 
+            var toDoListModelService = new ToDoList.Services.ToDoListModelService(mockedToDoListModelRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
+
+            //Act
+            toDoListModelService.DeleteToDoList(mockedToDoList.Object);
+
+            //Assert
+            mockedUnitOfWork.Verify(r => r.Commit(), Times.Once);
         }
     }
 }

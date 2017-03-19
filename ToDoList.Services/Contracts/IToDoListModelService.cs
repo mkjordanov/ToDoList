@@ -14,7 +14,7 @@ namespace ToDoList.Services.Contracts
        
         void CreateToDoList(ApplicationUser user, string name, bool isPublic, CategoryTypes category = CategoryTypes.General);
 
-        void DeleteToDoList(object toDoListId);
+        void DeleteToDoList(ToDoListModel toDoList);
 
         void UpdateToDoList(ToDoListModel toDoList);
 
