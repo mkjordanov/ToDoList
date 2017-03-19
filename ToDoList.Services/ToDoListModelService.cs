@@ -71,6 +71,8 @@ namespace ToDoList.Services
 
         public void UpdateToDoList(ToDoListModel toDoList)
         {
+            Guard.WhenArgument(toDoList, "ToDoList").IsNull().Throw();
+
             this.toDoListModelRepository.Update(toDoList);
             unitOfWork.Commit();
         }
