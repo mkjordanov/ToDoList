@@ -10,10 +10,10 @@ namespace ToDoList.Services.Contracts
 {
     public interface IToDoListTaskService
     {
-        IQueryable<ToDoListTask> GetAll();
-        IQueryable<ToDoListTask> GetAllByUserId(object id);
-        IQueryable<ToDoListTask> GetAllByUserAndCategory(object id, CategoryTypes category);
-        IQueryable<ToDoListTask> GetAllByUserAndPriority(object id, PriorityTypes priority);
+        IEnumerable<ToDoListTask> GetAll();
+        IEnumerable<ToDoListTask> GetAllByUserId(object id);
+        IEnumerable<ToDoListTask> GetAllByUserAndCategory(object id, CategoryTypes category);
+        IEnumerable<ToDoListTask> GetAllByUserAndPriority(object id, PriorityTypes priority);
         void CreateTask(ToDoListModel toDoList, CategoryTypes category, PriorityTypes priority, DateTime expirationDate, string task);
         ToDoListTask FindTaskById(object taskId);
         void DeleteTask(ToDoListTask task);

@@ -33,7 +33,7 @@ namespace ToDoList.Web.Controllers
         {
             var selectedCategory = Enum.Parse(typeof(CategoryTypes), category);
             var userId = User.Identity.GetUserId();
-            var currentUser = this.userService.GetUserById(Guid.Parse(userId));
+            var currentUser = this.userService.GetUserById(userId);
 
             this.toDoListModelService.CreateToDoList(currentUser, name, isPublic,(CategoryTypes)selectedCategory);
 

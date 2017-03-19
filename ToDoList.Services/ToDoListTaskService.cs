@@ -55,22 +55,22 @@ namespace ToDoList.Services
             throw new NotImplementedException();
         }
 
-        public IQueryable<ToDoListTask> GetAll()
+        public IEnumerable<ToDoListTask> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<ToDoListTask> GetAllByUserAndCategory(object id, CategoryTypes category)
+        public IEnumerable<ToDoListTask> GetAllByUserAndCategory(object id, CategoryTypes category)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<ToDoListTask> GetAllByUserAndPriority(object id, PriorityTypes priority)
+        public IEnumerable<ToDoListTask> GetAllByUserAndPriority(object id, PriorityTypes priority)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<ToDoListTask> GetAllByUserId(object id)
+        public IEnumerable<ToDoListTask> GetAllByUserId(object id)
         {
             throw new NotImplementedException();
         }
