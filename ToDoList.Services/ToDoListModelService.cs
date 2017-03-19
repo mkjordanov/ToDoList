@@ -1,6 +1,5 @@
 ﻿using Bytes2you.Validation;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using ToDoList.Data.EFRepository;
 using ToDoList.Data.UnitOfWork;
@@ -13,17 +12,17 @@ namespace ToDoList.Services
     public class ToDoListModelService : IToDoListModelService
     {
         private readonly IEFGenericRepository<ToDoListModel> toDoListModelRepository;
-        private readonly IEFGenericRepository<ApplicationUser> userService;
+        private readonly IEFGenericRepository<ApplicationUser> userRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public ToDoListModelService(IEFGenericRepository<ToDoListModel> toDoListModelService, IEFGenericRepository<ApplicationUser> userService, IUnitOfWork unitOfWork)
+        public ToDoListModelService(IEFGenericRepository<ToDoListModel> toDoListModelRepository, IEFGenericRepository<ApplicationUser> userRepository, IUnitOfWork unitOfWork)
         {
-            Guard.WhenArgument(toDoListModelService, "ToDoListModelService").IsNull().Throw();
-            Guard.WhenArgument(userService, "userService").IsNull().Throw();
+            Guard.WhenArgument(toDoListModelRepository, "ToDoListModelRepository").IsNull().Throw();
+            Guard.WhenArgument(userRepository, "userRepository").IsNull().Throw();
             Guard.WhenArgument(unitOfWork, "Unit of Work").IsNull().Throw();
 
-            this.toDoListModelRepository = toDoListModelService;
-            this.userService = userService;
+            this.toDoListModelRepository = toDoListModelRepository;
+            this.userRepository = userRepository;
             this.unitOfWork = unitOfWork;
         }
         public void CreateToDoList(object userId, string name, bool isPublic, CategoryTypes category=CategoryTypes.General)
@@ -39,7 +38,7 @@ namespace ToDoList.Services
                 Date = DateTime.Now
             };
 
-            var user = userService.GetById(userId);
+            var user = userRepository.GetById(userId);
             user.ToDoLists.Add(listToBeAdded);
             unitOfWork.Commit();
         }
