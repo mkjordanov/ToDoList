@@ -1,5 +1,6 @@
 ﻿using Bytes2you.Validation;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ToDoList.Data.EFRepository;
 using ToDoList.Data.UnitOfWork;
@@ -56,12 +57,12 @@ namespace ToDoList.Services
             unitOfWork.Commit();
         }
 
-        public IQueryable<ToDoListModel> GetAll()
+        public IEnumerable<ToDoListModel> GetAll()
         {
             return this.toDoListModelRepository.All;
         }
 
-        public IQueryable<ToDoListModel> GetAllByUser(object id)
+        public IEnumerable<ToDoListModel> GetAllByUserId(object id)
         {
             Guard.WhenArgument(id, "id").IsNull().Throw();
             return this.GetAll().Where(l => l.ApplicationUserId == id);

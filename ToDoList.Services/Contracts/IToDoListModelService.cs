@@ -7,9 +7,9 @@ namespace ToDoList.Services.Contracts
 {
     public interface IToDoListModelService
     {
-        IQueryable<ToDoListModel> GetAll();
+        IEnumerable<ToDoListModel> GetAll();
 
-        IQueryable<ToDoListModel> GetAllByUser(object id);
+        IEnumerable<ToDoListModel> GetAllByUserId(object id);
         ToDoListModel GetListById(object id);
        
         void CreateToDoList(ApplicationUser user, string name, bool isPublic, CategoryTypes category = CategoryTypes.General);
