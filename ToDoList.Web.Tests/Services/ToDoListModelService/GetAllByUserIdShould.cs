@@ -1,7 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using ToDoList.Data.EFRepository;
 using ToDoList.Data.UnitOfWork;
 using ToDoList.Models;
@@ -9,10 +12,10 @@ using ToDoList.Models;
 namespace ToDoList.Web.Tests.Services.ToDoListModelService
 {
     [TestFixture]
-    public class GetAllShould
+    public class GetAllByUserIdShould
     {
         [Test]
-        public void CallRepositoryAll_OnlyOnce()
+        public void Throw_WhenIdIsNull()
         {
             //Arrange
             var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
@@ -21,13 +24,12 @@ namespace ToDoList.Web.Tests.Services.ToDoListModelService
 
             var toDoListModelService = new ToDoList.Services.ToDoListModelService(mockedToDoListModelRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
-            //Act
-            toDoListModelService.GetAll();
-
-            //Assert
-            mockedToDoListModelRepository.Verify(x => x.All, Times.Once);
+            //Act&Assert
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                toDoListModelService.GetAllByUserId(null);
+            });
         }
-
         [Test]
         public void ReturnCorrectResult_WhenCalled()
         {
@@ -36,22 +38,33 @@ namespace ToDoList.Web.Tests.Services.ToDoListModelService
             var mockedToDoListModelRepository = new Mock<IEFGenericRepository<ToDoListModel>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
 
+            var mockedUserOne = new Mock<ApplicationUser>();
+            mockedUserOne.Setup(s => s.Id).Returns("1");
+
+            var mockedUserTwo = new Mock<ApplicationUser>();
+            mockedUserOne.Setup(s => s.Id).Returns("2");
+
             var toDoListModelService = new ToDoList.Services.ToDoListModelService(mockedToDoListModelRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
             var expectedCollection = new List<ToDoListModel>()
             {
-                new ToDoListModel() {Name="Sample List" }
+                new ToDoListModel() {Name="Sample List", ApplicationUserId= mockedUserOne.Object },
+                new ToDoListModel() {Name="Sample List 1", ApplicationUserId= mockedUserOne.Object },
+                new ToDoListModel() {Name="Sample List 2", ApplicationUserId= mockedUserTwo.Object },
+                new ToDoListModel() {Name="Sample List 3", ApplicationUserId= mockedUserTwo.Object },
+                new ToDoListModel() {Name="Sample List 4", ApplicationUserId= mockedUserTwo.Object }
             };
 
             mockedToDoListModelRepository.Setup(r => r.All).Returns(() =>
             {
-                return expectedCollection.AsQueryable();
+                return expectedCollection.Where(l=>l.ApplicationUserId== mockedUserOne.Object).AsQueryable();
             });
+
             //Act
-            var actualResult=toDoListModelService.GetAll();
+            var actualResult = toDoListModelService.GetAllByUserId(mockedUserOne.Object);
 
             //Assert
-            Assert.That(actualResult, Is.EqualTo(expectedCollection));
+            Assert.That(actualResult.Count(), Is.EqualTo(2));
 
         }
 
@@ -74,33 +87,12 @@ namespace ToDoList.Web.Tests.Services.ToDoListModelService
             {
                 return expectedCollection.AsQueryable();
             });
+
             //Act
-            var actualResult = toDoListModelService.GetAll();
+            var actualResult = toDoListModelService.GetAllByUserId(It.IsAny<Guid>());
 
             //Assert
             Assert.That(actualResult, Is.InstanceOf<IEnumerable<ToDoListModel>>());
-
-        }
-
-        [Test]
-        public void ReturnNull_WhenCalledAndCollectionIsNull()
-        {
-            //Arrange
-            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
-            var mockedToDoListModelRepository = new Mock<IEFGenericRepository<ToDoListModel>>();
-            var mockedUnitOfWork = new Mock<IUnitOfWork>();
-
-            var toDoListModelService = new ToDoList.Services.ToDoListModelService(mockedToDoListModelRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
-
-            mockedToDoListModelRepository.Setup(r => r.All).Returns(() =>
-            {
-                return null;
-            });
-            //Act
-            var actualResult = toDoListModelService.GetAll();
-
-            //Assert
-            Assert.IsNull(actualResult);
 
         }
     }

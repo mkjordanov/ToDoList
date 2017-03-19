@@ -65,6 +65,7 @@ namespace ToDoList.Services
         public IEnumerable<ToDoListModel> GetAllByUserId(object id)
         {
             Guard.WhenArgument(id, "id").IsNull().Throw();
+
             return this.GetAll().Where(l => l.ApplicationUserId == id);
         }
 
