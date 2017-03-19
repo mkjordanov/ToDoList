@@ -98,6 +98,7 @@
     <Compile Include="Controllers\ToDoListController\Controller_Should.cs" />
     <Compile Include="Services\ToDoListModelService\ConstructorShould.cs" />
     <Compile Include="Services\ToDoListModelService\CreateToDoListShould.cs" />
+    <Compile Include="Services\ToDoListModelService\GetListByIdShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

@@ -44,6 +44,8 @@ namespace ToDoList.Services
 
         public ToDoListModel GetListById(object id)
         {
+            Guard.WhenArgument(id, "id").IsNull().Throw();
+
             return this.toDoListModelRepository.GetById(id);
         }
         public void DeleteToDoList(object ToDoListId)
