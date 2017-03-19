@@ -12,7 +12,7 @@ namespace ToDoList.Services.Contracts
         IQueryable<ToDoListModel> GetAllByUser(object id);
         ToDoListModel GetListById(object id);
        
-        void CreateToDoList(object userId, string name, bool isPublic, CategoryTypes category = CategoryTypes.General);
+        void CreateToDoList(ApplicationUser user, string name, bool isPublic, CategoryTypes category = CategoryTypes.General);
 
         void DeleteToDoList(object toDoListId);
 

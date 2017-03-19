@@ -25,9 +25,9 @@ namespace ToDoList.Services
             this.userRepository = userRepository;
             this.unitOfWork = unitOfWork;
         }
-        public void CreateToDoList(object userId, string name, bool isPublic, CategoryTypes category=CategoryTypes.General)
+        public void CreateToDoList(ApplicationUser user, string name, bool isPublic, CategoryTypes category = CategoryTypes.General)
         {
-            Guard.WhenArgument(userId, "userId").IsNull().Throw();
+            Guard.WhenArgument(user, "user").IsNull().Throw();
             Guard.WhenArgument(name, "name").IsNullOrEmpty().Throw();
 
             var listToBeAdded = new ToDoListModel()
@@ -38,20 +38,19 @@ namespace ToDoList.Services
                 Date = DateTime.Now
             };
 
-            var user = userRepository.GetById(userId);
             user.ToDoLists.Add(listToBeAdded);
             unitOfWork.Commit();
         }
 
         public ToDoListModel GetListById(object id)
         {
-           return this.toDoListModelRepository.GetById(id);
+            return this.toDoListModelRepository.GetById(id);
         }
         public void DeleteToDoList(object ToDoListId)
         {
             Guard.WhenArgument(ToDoListId, "ToDoListId").IsNull().Throw();
 
-            var listToBeDeleted=this.toDoListModelRepository.GetById(ToDoListId);
+            var listToBeDeleted = this.toDoListModelRepository.GetById(ToDoListId);
             this.toDoListModelRepository.Delete(listToBeDeleted);
             unitOfWork.Commit();
         }

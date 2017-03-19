@@ -33,8 +33,9 @@ namespace ToDoList.Web.Controllers
         {
             var selectedCategory = Enum.Parse(typeof(CategoryTypes), category);
             var userId = User.Identity.GetUserId();
+            var currentUser = this.userService.GetUserById(Guid.Parse(userId));
 
-            this.toDoListModelService.CreateToDoList(userId, name, isPublic,(CategoryTypes)selectedCategory);
+            this.toDoListModelService.CreateToDoList(currentUser, name, isPublic,(CategoryTypes)selectedCategory);
 
             return RedirectToAction("ListsAndTasks", "ToDoList");
         }
