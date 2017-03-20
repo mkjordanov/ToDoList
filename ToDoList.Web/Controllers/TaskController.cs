@@ -71,6 +71,7 @@ namespace ToDoList.Web.Controllers
         public ActionResult Edit(string id)
         {
             var task = this.taskService.FindTaskById(Guid.Parse(id));
+
             return this.View(task);
         }
 
