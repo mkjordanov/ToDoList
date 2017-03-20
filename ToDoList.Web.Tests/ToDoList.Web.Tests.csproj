@@ -120,6 +120,7 @@
     <Compile Include="Services\ToDoListModelService\GetListByIdShould.cs" />
     <Compile Include="Services\ToDoListModelService\UpdateToDoListShould.cs" />
     <Compile Include="Services\ToDoTaskService\ConstructorShould.cs" />
+    <Compile Include="Services\ToDoTaskService\CreateTaskShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

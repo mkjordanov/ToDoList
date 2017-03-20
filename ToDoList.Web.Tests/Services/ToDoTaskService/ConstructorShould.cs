@@ -27,7 +27,6 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
             {
                 new ToDoListTaskService(null, mockedUnitOfWork.Object);
             });
-
         }
 
         [Test]
@@ -41,7 +40,6 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
             {
                 new ToDoListTaskService(mockedToDoListTaskRepository.Object, null);
             });
-
         }
     }
 }
