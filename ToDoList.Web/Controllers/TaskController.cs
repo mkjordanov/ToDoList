@@ -90,5 +90,18 @@ namespace ToDoList.Web.Controllers
 
             return RedirectToAction("Index", "Task", new { id = listId });
         }
+
+        [HttpPost]
+        public ActionResult Done(string id)
+        {
+            var listId = TempData["ListId"];
+
+            var task = this.taskService.FindTaskById(Guid.Parse(id));
+            task.IsDone = !task.IsDone;
+            this.taskService.UpdateTask(task);
+
+            return RedirectToAction("Index", "Task", new { id = listId });
+
+        }
     }
 }

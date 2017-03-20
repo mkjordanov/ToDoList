@@ -48,8 +48,18 @@
                 @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
+                @using (Html.BeginForm("Done","Task",new {id =item.Id }))
+                {
+                    string compleated="Done";
+                    if (item.IsDone==true)
+                    {
+                        compleated = "unDone";
+                    }
+                    <input type="submit" value=@compleated class="btn btn-group-sm btn-success"  />
+                }
+            </td>
+            <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
