@@ -23,11 +23,13 @@ namespace ToDoList.Web.Controllers
             this.toDoListModelService = toDoListModelService;
             this.userService = userService;
         }
+
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Create(string name, bool isPublic, string category )
         {
@@ -39,21 +41,52 @@ namespace ToDoList.Web.Controllers
 
             return RedirectToAction("ListsAndTasks", "ToDoList");
         }
+
         [HttpGet]
         public ActionResult ListsAndTasks()
         {
             var userId = User.Identity.GetUserId();
             var currentUser = this.userService.GetUserById(userId);
-            //var currentUserLists = this.toDoListModelService.GetAllByUser(userId).ToList();
             return this.View(currentUser.ToDoLists);
         }
 
-        //[HttpGet]
-        //public ActionResult Tasks(string id)
-        //{
-        //    var selectedList=this.toDoListModelService.GetListById(Guid.Parse(id));
-        //    var selectedListTasks = selectedList.Tasks;
-        //    return this.View(selectedListTasks);
-        //}
+        [HttpGet]
+        public ActionResult Delete(string id)
+        {
+            var list = this.toDoListModelService.GetListById(Guid.Parse(id));
+            return this.View(list);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult DeleteList(string id)
+        {
+            var listToBeDeleted = this.toDoListModelService.GetListById(Guid.Parse(id));
+            this.toDoListModelService.DeleteToDoList(listToBeDeleted);
+            return RedirectToAction("ListsAndTasks", "ToDoList");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(string id)
+        {
+            var list = this.toDoListModelService.GetListById(Guid.Parse(id));
+            return this.View(list);
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        public ActionResult EditList(string id, string name, string isPublic,string category)
+        {
+            var listToBeEdited = this.toDoListModelService.GetListById(Guid.Parse(id));
+
+            listToBeEdited.Name = name;
+            listToBeEdited.IsPublic = bool.Parse(isPublic);
+            listToBeEdited.Category = (CategoryTypes)Enum.Parse(typeof(CategoryTypes), category);
+            listToBeEdited.Date = DateTime.Now;
+
+            this.toDoListModelService.UpdateToDoList(listToBeEdited);
+
+            return RedirectToAction("ListsAndTasks", "ToDoList");
+        }
     }
 }
