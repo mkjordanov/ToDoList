@@ -15,9 +15,9 @@ namespace ToDoList.Services
 {
     public class ToDoListTaskService : IToDoListTaskService
     {
-        private readonly IEFGenericRepository<IToDoListTask> toDoListTaskRepository;
+        private readonly IEFGenericRepository<ToDoListTask> toDoListTaskRepository;
         private readonly IUnitOfWork unitOfWork;
-        public ToDoListTaskService(IEFGenericRepository<IToDoListTask> toDoListTaskRepository, IUnitOfWork unitOfWork)
+        public ToDoListTaskService(IEFGenericRepository<ToDoListTask> toDoListTaskRepository, IUnitOfWork unitOfWork)
         {
             Guard.WhenArgument(toDoListTaskRepository, "To-Do ListTask Repository").IsNull().Throw();
             Guard.WhenArgument(unitOfWork, "Unit of work").IsNull().Throw();
@@ -47,12 +47,17 @@ namespace ToDoList.Services
 
         public void DeleteTask(ToDoListTask task)
         {
-            throw new NotImplementedException();
+            Guard.WhenArgument(task, "task").IsNull().Throw();
+
+            this.toDoListTaskRepository.Delete(task);
+            this.unitOfWork.Commit();
         }
 
         public ToDoListTask FindTaskById(object taskId)
         {
-            throw new NotImplementedException();
+            Guard.WhenArgument(taskId, "Task id").IsNull().Throw();
+
+            return this.toDoListTaskRepository.GetById(taskId);
         }
 
         public IEnumerable<ToDoListTask> GetAll()
@@ -77,7 +82,10 @@ namespace ToDoList.Services
 
         public void UpdateTask(ToDoListTask task)
         {
-            throw new NotImplementedException();
+            Guard.WhenArgument(task, "task").IsNull().Throw();
+
+            this.toDoListTaskRepository.Update(task);
+            this.unitOfWork.Commit();
         }
     }
 }

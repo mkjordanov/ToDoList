@@ -25,6 +25,7 @@ namespace ToDoList.Web.Controllers
         [HttpGet]
         public ActionResult Index(string id)
         {
+            TempData["ListId"] = id;
             var selectedList = this.toDoListModelService.GetListById(Guid.Parse(id));
             return this.View(selectedList);
         }
@@ -46,6 +47,48 @@ namespace ToDoList.Web.Controllers
 
             this.taskService.CreateTask(usedList, (CategoryTypes)taskCategory, (PriorityTypes)taskPriority, taskExpirationDate, task);
             return RedirectToAction("Index", "Task", new { id = id });
+        }
+
+        [HttpGet]
+        public ActionResult Delete(string id)
+        {
+            var task = this.taskService.FindTaskById(Guid.Parse(id));
+
+            return this.View(task);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult DeleteTask(string id)
+        {
+            var listId = TempData["ListId"];
+            var taskToBeDeleted = this.taskService.FindTaskById(Guid.Parse(id));
+            this.taskService.DeleteTask(taskToBeDeleted);
+
+            return RedirectToAction("Index", "Task", new { id = listId });
+        }
+        [HttpGet]
+        public ActionResult Edit(string id)
+        {
+            var task = this.taskService.FindTaskById(Guid.Parse(id));
+            return this.View(task);
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        public ActionResult EditTask(string id, string task, string category, string priority, string expirationDate)
+        {
+            var listId = TempData["ListId"];
+            var taskToBeEdited = this.taskService.FindTaskById(Guid.Parse(id));
+
+            taskToBeEdited.Task = task;
+            taskToBeEdited.Category = (CategoryTypes)Enum.Parse(typeof(CategoryTypes), category);
+            taskToBeEdited.Priority = (PriorityTypes)Enum.Parse(typeof(PriorityTypes), priority);
+            taskToBeEdited.ExpirationDate= DateTime.Parse(expirationDate);
+
+            this.taskService.UpdateTask(taskToBeEdited);
+
+            return RedirectToAction("Index", "Task", new { id = listId });
         }
     }
 }
