@@ -54,6 +54,8 @@ namespace ToDoList.Web.Areas.User.Controllers
         [HttpGet]
         public ActionResult Delete(string id)
         {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+
             var list = this.toDoListModelService.GetListById(Guid.Parse(id));
             return this.View(list);
         }
