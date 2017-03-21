@@ -118,6 +118,7 @@
     <Compile Include="Controllers\ToDoListControllerTests\CreatePostShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\DeleteListShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\DeleteShould.cs" />
+    <Compile Include="Controllers\ToDoListControllerTests\EditShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\ListsAndTasksShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\Controller_Should.cs" />

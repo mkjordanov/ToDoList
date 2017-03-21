@@ -74,6 +74,8 @@ namespace ToDoList.Web.Areas.User.Controllers
         [HttpGet]
         public ActionResult Edit(string id)
         {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+
             var list = this.toDoListModelService.GetListById(Guid.Parse(id));
             return this.View(list);
         }
