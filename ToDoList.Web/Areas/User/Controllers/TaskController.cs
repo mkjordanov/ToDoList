@@ -5,7 +5,7 @@ using ToDoList.Models.Enums;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Models.TaskViewModels;
 
-namespace ToDoList.Web.Controllers
+namespace ToDoList.Web.Areas.User.Controllers
 {
     public class TaskController : Controller
     {

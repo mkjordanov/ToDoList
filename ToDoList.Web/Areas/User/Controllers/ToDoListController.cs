@@ -6,9 +6,9 @@ using Microsoft.AspNet.Identity;
 using ToDoList.Models.Enums;
 using ToDoList.Web.Models.TaskViewModels;
 
-namespace ToDoList.Web.Controllers
+namespace ToDoList.Web.Areas.User.Controllers
 {
-    [Authorize]
+    //[Authorize(Roles ="User, Admin")]
     public class ToDoListController : Controller
     {
         private readonly IToDoListModelService toDoListModelService;

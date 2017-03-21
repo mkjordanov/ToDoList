@@ -188,11 +188,14 @@
     <Compile Include="App_Start\NinjectModules\ServicesModule.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
+    <Compile Include="Areas\User\UserAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\TaskController.cs" />
-    <Compile Include="Controllers\ToDoListController.cs" />
+    <Compile Include="Areas\User\Controllers\TaskController.cs" />
+    <Compile Include="Areas\User\Controllers\ToDoListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,6 +228,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\User\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
+    <Content Include="Areas\User\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -271,17 +280,20 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\ToDoList\ListsAndTasks.cshtml" />
-    <Content Include="Views\Task\Index.cshtml" />
-    <Content Include="Views\Task\Create.cshtml" />
-    <Content Include="Views\ToDoList\Create.cshtml" />
-    <Content Include="Views\ToDoList\Delete.cshtml" />
-    <Content Include="Views\ToDoList\Edit.cshtml" />
-    <Content Include="Views\Task\Delete.cshtml" />
-    <Content Include="Views\Task\Edit.cshtml" />
+    <Content Include="Areas\User\Views\ToDoList\ListsAndTasks.cshtml" />
+    <Content Include="Areas\User\Views\Task\Index.cshtml" />
+    <Content Include="Areas\User\Views\Task\Create.cshtml" />
+    <Content Include="Areas\User\Views\ToDoList\Create.cshtml" />
+    <Content Include="Areas\User\Views\ToDoList\Delete.cshtml" />
+    <Content Include="Areas\User\Views\ToDoList\Edit.cshtml" />
+    <Content Include="Areas\User\Views\Task\Delete.cshtml" />
+    <Content Include="Areas\User\Views\Task\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\User\Models\" />
+    <Folder Include="Areas\User\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
