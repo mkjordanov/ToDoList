@@ -122,6 +122,7 @@
     <Compile Include="Services\ToDoTaskService\ConstructorShould.cs" />
     <Compile Include="Services\ToDoTaskService\CreateTaskShould.cs" />
     <Compile Include="Services\ToDoTaskService\DeleteTaskShould.cs" />
+    <Compile Include="Services\ToDoTaskService\FindTaskByIdShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
