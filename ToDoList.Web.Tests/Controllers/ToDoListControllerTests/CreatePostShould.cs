@@ -135,7 +135,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             //Act
             controller.Create(mockedToDoListViewModel.Object);
 
-            //Act
+            //Assert
             mokcedUserService.Verify(u => u.GetUserById(It.IsAny<string>()), Times.Once);
         }
 
@@ -162,7 +162,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             //Act
             controller.Create(mockedToDoListViewModel.Object);
 
-            //Act
+            //Assert
             mokcedToDoListModelService.Verify(u => u.CreateToDoList(It.IsAny<ApplicationUser>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<CategoryTypes>()), Times.Once);
         }
     }
