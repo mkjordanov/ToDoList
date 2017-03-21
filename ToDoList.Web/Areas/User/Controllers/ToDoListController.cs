@@ -64,6 +64,8 @@ namespace ToDoList.Web.Areas.User.Controllers
         [ActionName("Delete")]
         public ActionResult DeleteList(string id)
         {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+
             var listToBeDeleted = this.toDoListModelService.GetListById(Guid.Parse(id));
             this.toDoListModelService.DeleteToDoList(listToBeDeleted);
             return RedirectToAction("ListsAndTasks", "ToDoList");
