@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using ToDoList.Services.Contracts;
 using Microsoft.AspNet.Identity;
 using ToDoList.Models.Enums;
+using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Controllers
 {
@@ -31,13 +32,13 @@ namespace ToDoList.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string name, bool isPublic, string category )
+        public ActionResult Create(ToDoListViewModel newList)
         {
-            var selectedCategory = Enum.Parse(typeof(CategoryTypes), category);
+            var selectedCategory = Enum.Parse(typeof(CategoryTypes), newList.category);
             var userId = User.Identity.GetUserId();
             var currentUser = this.userService.GetUserById(userId);
 
-            this.toDoListModelService.CreateToDoList(currentUser, name, isPublic,(CategoryTypes)selectedCategory);
+            this.toDoListModelService.CreateToDoList(currentUser, newList.name, newList.isPublic, (CategoryTypes)selectedCategory);
 
             return RedirectToAction("ListsAndTasks", "ToDoList");
         }
@@ -75,13 +76,13 @@ namespace ToDoList.Web.Controllers
 
         [HttpPost]
         [ActionName("Edit")]
-        public ActionResult EditList(string id, string name, string isPublic,string category)
+        public ActionResult EditList(string id, ToDoListViewModel editList)
         {
             var listToBeEdited = this.toDoListModelService.GetListById(Guid.Parse(id));
 
-            listToBeEdited.Name = name;
-            listToBeEdited.IsPublic = bool.Parse(isPublic);
-            listToBeEdited.Category = (CategoryTypes)Enum.Parse(typeof(CategoryTypes), category);
+            listToBeEdited.Name = editList.name;
+            listToBeEdited.IsPublic = editList.isPublic;
+            listToBeEdited.Category = (CategoryTypes)Enum.Parse(typeof(CategoryTypes), editList.category);
             listToBeEdited.Date = DateTime.Now;
 
             this.toDoListModelService.UpdateToDoList(listToBeEdited);

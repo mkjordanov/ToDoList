@@ -1,11 +1,9 @@
 ﻿using Bytes2you.Validation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ToDoList.Models.Enums;
 using ToDoList.Services.Contracts;
+using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Controllers
 {
@@ -37,15 +35,15 @@ namespace ToDoList.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string id, string task, string category, string priority, string expirationDate)
+        public ActionResult Create(string id, TaskViewModel newTask)
         {
             var usedList = this.toDoListModelService.GetListById(Guid.Parse(id));
 
-            var taskCategory = Enum.Parse(typeof(CategoryTypes), category);
-            var taskPriority = Enum.Parse(typeof(PriorityTypes), priority);
-            var taskExpirationDate = DateTime.Parse(expirationDate);
+            var taskCategory = Enum.Parse(typeof(CategoryTypes), newTask.category);
+            var taskPriority = Enum.Parse(typeof(PriorityTypes), newTask.priority);
+            var taskExpirationDate = DateTime.Parse(newTask.expirationDate);
 
-            this.taskService.CreateTask(usedList, (CategoryTypes)taskCategory, (PriorityTypes)taskPriority, taskExpirationDate, task);
+            this.taskService.CreateTask(usedList, (CategoryTypes)taskCategory, (PriorityTypes)taskPriority, taskExpirationDate, newTask.task);
             return RedirectToAction("Index", "Task", new { id = id });
         }
 
@@ -77,15 +75,15 @@ namespace ToDoList.Web.Controllers
 
         [HttpPost]
         [ActionName("Edit")]
-        public ActionResult EditTask(string id, string task, string category, string priority, string expirationDate)
+        public ActionResult EditTask(string id, TaskViewModel editTask)
         {
             var listId = TempData["ListId"];
             var taskToBeEdited = this.taskService.FindTaskById(Guid.Parse(id));
 
-            taskToBeEdited.Task = task;
-            taskToBeEdited.Category = (CategoryTypes)Enum.Parse(typeof(CategoryTypes), category);
-            taskToBeEdited.Priority = (PriorityTypes)Enum.Parse(typeof(PriorityTypes), priority);
-            taskToBeEdited.ExpirationDate= DateTime.Parse(expirationDate);
+            taskToBeEdited.Task = editTask.task;
+            taskToBeEdited.Category = (CategoryTypes)Enum.Parse(typeof(CategoryTypes), editTask.category);
+            taskToBeEdited.Priority = (PriorityTypes)Enum.Parse(typeof(PriorityTypes), editTask.priority);
+            taskToBeEdited.ExpirationDate= DateTime.Parse(editTask.expirationDate);
 
             this.taskService.UpdateTask(taskToBeEdited);
 

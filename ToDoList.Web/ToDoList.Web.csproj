@@ -213,7 +213,8 @@
     <Compile Include="Models\ManageViewModels\ManageLoginsViewModel.cs" />
     <Compile Include="Models\ManageViewModels\SetPasswordViewModel.cs" />
     <Compile Include="Models\ManageViewModels\VerifyPhoneNumberViewModel.cs" />
-    <Compile Include="Models\TaskViewModels\CreateTaskViewModel.cs" />
+    <Compile Include="Models\TaskViewModels\TaskViewModel.cs" />
+    <Compile Include="Models\TaskViewModels\ToDoListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

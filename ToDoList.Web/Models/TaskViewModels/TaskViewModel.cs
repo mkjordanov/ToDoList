@@ -7,7 +7,7 @@ using ToDoList.Models.Enums;
 
 namespace ToDoList.Web.Models.TaskViewModels
 {
-    public class CreateTaskViewModel
+    public class TaskViewModel
     {
         [Required]
         [MaxLength(100, ErrorMessage ="Task must not be longer than 100 characters")]
@@ -17,8 +17,8 @@ namespace ToDoList.Web.Models.TaskViewModels
         public string category { get; set; }
         [Required]
         public string priority { get; set; }
-        [Required]
 
+        [Required]
         public string expirationDate { get; set; }
     }
 }
