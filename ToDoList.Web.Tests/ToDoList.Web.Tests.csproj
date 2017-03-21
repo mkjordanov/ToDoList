@@ -114,6 +114,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ToDoListControllerTests\CreateGetShould.cs" />
+    <Compile Include="Controllers\ToDoListControllerTests\CreatePostShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\Controller_Should.cs" />
     <Compile Include="Services\ToDoListModelService\ConstructorShould.cs" />

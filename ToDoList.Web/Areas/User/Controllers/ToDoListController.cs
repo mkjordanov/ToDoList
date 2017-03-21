@@ -31,6 +31,9 @@ namespace ToDoList.Web.Areas.User.Controllers
         [HttpPost]
         public ActionResult Create(ToDoListViewModel newList)
         {
+            Guard.WhenArgument(newList.category, "Categoty").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(newList.name, "Categoty").IsNullOrEmpty().Throw();
+
             var selectedCategory = Enum.Parse(typeof(CategoryTypes), newList.category);
             var userId = User.Identity.GetUserId();
             var currentUser = this.userService.GetUserById(userId);
