@@ -59,6 +59,8 @@ namespace ToDoList.Web.Areas.User.Controllers
         [HttpGet]
         public ActionResult Delete(string id)
         {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+
             var task = this.taskService.FindTaskById(Guid.Parse(id));
 
             return this.View(task);
@@ -68,6 +70,8 @@ namespace ToDoList.Web.Areas.User.Controllers
         [ActionName("Delete")]
         public ActionResult DeleteTask(string id)
         {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+
             var listId = TempData["ListId"];
             var taskToBeDeleted = this.taskService.FindTaskById(Guid.Parse(id));
             this.taskService.DeleteTask(taskToBeDeleted);

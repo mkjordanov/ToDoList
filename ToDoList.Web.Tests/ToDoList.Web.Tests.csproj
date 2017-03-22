@@ -117,6 +117,8 @@
     <Compile Include="Controllers\TaskControllerTests\ConstructorShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\CreateGetShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\CreatePostShould.cs" />
+    <Compile Include="Controllers\TaskControllerTests\DeleteShould.cs" />
+    <Compile Include="Controllers\TaskControllerTests\DeleteTaskShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\IndexShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\CreateGetShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\CreatePostShould.cs" />
