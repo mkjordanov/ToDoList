@@ -78,9 +78,12 @@ namespace ToDoList.Web.Areas.User.Controllers
 
             return RedirectToAction("Index", "Task", new { id = listId });
         }
+
         [HttpGet]
         public ActionResult Edit(string id)
         {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+
             var task = this.taskService.FindTaskById(Guid.Parse(id));
 
             return this.View(task);
@@ -90,6 +93,13 @@ namespace ToDoList.Web.Areas.User.Controllers
         [ActionName("Edit")]
         public ActionResult EditTask(string id, TaskViewModel editTask)
         {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(editTask, "editTask").IsNull().Throw();
+            Guard.WhenArgument(editTask.category, "editTask.category").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(editTask.expirationDate, "editTask.expirationDate").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(editTask.priority, "editTask.priority").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(editTask.task, "editTask.task").IsNullOrEmpty().Throw();
+
             var listId = TempData["ListId"];
             var taskToBeEdited = this.taskService.FindTaskById(Guid.Parse(id));
 
