@@ -84,6 +84,11 @@ namespace ToDoList.Web.Areas.User.Controllers
         [ActionName("Edit")]
         public ActionResult EditList(string id, ToDoListViewModel editList)
         {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(editList, "editList").IsNull().Throw();
+            Guard.WhenArgument(editList.name, "editList.name").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(editList.category, "editList.category").IsNullOrEmpty().Throw();
+
             var listToBeEdited = this.toDoListModelService.GetListById(Guid.Parse(id));
 
             listToBeEdited.Name = editList.name;
