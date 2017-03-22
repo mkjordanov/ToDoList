@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System;
 using TestStack.FluentMVCTesting;
+using ToDoList.Models;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.User.Controllers;
 
@@ -61,6 +62,25 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
 
             //Act & Assert
             controller.WithCallTo(c => c.Delete(Guid.NewGuid().ToString())).ShouldRenderDefaultView();
+        }
+
+        [Test]
+        public void RenderDefaultViewWithCorrectModel()
+        {
+            //Arrange
+            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
+            var mokcedUserService = new Mock<IUserService>();
+            var mockedlist = new Mock<ToDoListModel>();
+
+            var id = Guid.NewGuid();
+            mockedlist.Object.Id = id;
+
+            mokcedToDoListModelService.Setup(s => s.GetListById(id)).Returns(mockedlist.Object);
+
+            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
+
+            //Act & Assert
+            controller.WithCallTo(c => c.Delete(id.ToString())).ShouldRenderDefaultView().WithModel(mockedlist.Object);
         }
 
     }

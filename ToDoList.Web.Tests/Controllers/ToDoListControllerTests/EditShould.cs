@@ -1,11 +1,8 @@
 ﻿using Moq;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestStack.FluentMVCTesting;
+using ToDoList.Models;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.User.Controllers;
 
@@ -55,17 +52,35 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             mokcedToDoListModelService.Verify(u => u.GetListById(It.IsAny<Guid>()), Times.Once);
         }
 
-        //[Test]
-        //public void RedirectToListsAndTasks()
-        //{
-        //    //Arrange
-        //    var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-        //    var mokcedUserService = new Mock<IUserService>();
+        [Test]
+        public void RenderDefulatView()
+        {
+            //Arrange
+            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
+            var mokcedUserService = new Mock<IUserService>();
 
-        //    var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
+            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
 
-        //    //Act&Assert
-            
-        //}
+            //Act&Assert
+            controller.WithCallTo(c => c.Edit(Guid.NewGuid().ToString())).ShouldRenderDefaultView();
+        }
+
+        [Test]
+        public void RenderDefulatViewWithCorrectModel()
+        {
+            //Arrange
+            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
+            var mokcedUserService = new Mock<IUserService>();
+            var mockedlist = new Mock<ToDoListModel>();
+
+            var id = Guid.NewGuid();
+            mockedlist.Object.Id = id;
+
+            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
+            mokcedToDoListModelService.Setup(s => s.GetListById(id)).Returns(mockedlist.Object);
+
+            //Act&Assert
+            controller.WithCallTo(c => c.Edit(id.ToString())).ShouldRenderDefaultView().WithModel(mockedlist.Object);
+        }
     }
 }
