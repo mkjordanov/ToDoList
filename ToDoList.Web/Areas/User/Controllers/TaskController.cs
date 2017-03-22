@@ -39,6 +39,13 @@ namespace ToDoList.Web.Areas.User.Controllers
         [HttpPost]
         public ActionResult Create(string id, TaskViewModel newTask)
         {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(newTask, "newTask").IsNull().Throw();
+            Guard.WhenArgument(newTask.category, "newTask.category").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(newTask.expirationDate, "newTask.expirationDate").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(newTask.priority, "newTask.priority").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(newTask.task, "newTask.task").IsNullOrEmpty().Throw();
+
             var usedList = this.toDoListModelService.GetListById(Guid.Parse(id));
 
             var taskCategory = Enum.Parse(typeof(CategoryTypes), newTask.category);
