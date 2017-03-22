@@ -9,7 +9,7 @@ using System;
 namespace ToDoList.Web.Tests.Controllers
 {
     [TestFixture]
-    public class Controller_Should
+    public class ConstructorShould
     {
         [Test]
         public void Throw_WhenToDoListModelServiceIsNull()

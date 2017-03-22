@@ -23,6 +23,8 @@ namespace ToDoList.Web.Areas.User.Controllers
         [HttpGet]
         public ActionResult Index(string id)
         {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+
             TempData["ListId"] = id;
             var selectedList = this.toDoListModelService.GetListById(Guid.Parse(id));
             return this.View(selectedList);
