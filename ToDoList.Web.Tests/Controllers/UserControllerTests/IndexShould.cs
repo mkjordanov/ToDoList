@@ -57,9 +57,10 @@ namespace ToDoList.Web.Tests.Controllers.UserControllerTests
             controller
                 .WithCallTo(c => c.Index())
                 .ShouldRenderDefaultView()
-                .WithModel<List<ApplicationUser>>(actual=> { Assert.AreEqual(actual, expectedList); });
+                .WithModel<List<ApplicationUser>>(actual =>
+                {
+                    Assert.AreEqual(actual, expectedList);
+                });
         }
-
-
     }
 }

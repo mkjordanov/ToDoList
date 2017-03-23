@@ -70,12 +70,12 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             //Arrange
             var mokcedToDoListModelService = new Mock<IToDoListModelService>();
             var mokcedUserService = new Mock<IUserService>();
-            var mockedlist = new Mock<ToDoListModel>();
-
+            // var mockedlist = new Mock<ToDoListModel>();
+            var list =new ToDoListModel();
             var id = Guid.NewGuid();
-            mockedlist.Object.Id = id;
+            list.Id = id;
 
-            mokcedToDoListModelService.Setup(s => s.GetListById(id)).Returns(mockedlist.Object);
+            mokcedToDoListModelService.Setup(s => s.GetListById(id)).Returns(list);
 
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
 
@@ -83,7 +83,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             controller
                 .WithCallTo(c => c.Delete(id.ToString()))
                 .ShouldRenderDefaultView()
-                .WithModel(mockedlist.Object);
+                .WithModel(list);
         }
 
     }
