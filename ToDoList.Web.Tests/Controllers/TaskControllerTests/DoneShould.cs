@@ -1,6 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using TestStack.FluentMVCTesting;
 using ToDoList.Models;
 using ToDoList.Services.Contracts;
@@ -9,7 +13,7 @@ using ToDoList.Web.Areas.User.Controllers;
 namespace ToDoList.Web.Tests.Controllers.TaskControllerTests
 {
     [TestFixture]
-    public class EditShould
+    public class DoneShould
     {
         [Test]
         public void Throw_WhenIdIsEmpty()
@@ -21,7 +25,7 @@ namespace ToDoList.Web.Tests.Controllers.TaskControllerTests
             var controller = new TaskController(mokcedToDoListModelService.Object, mokcedTaskService.Object);
 
             //Act&Assert
-            Assert.Throws<ArgumentException>(() => { controller.Edit(string.Empty); });
+            Assert.Throws<ArgumentException>(() => { controller.Done(string.Empty); });
         }
 
         [Test]
@@ -34,7 +38,7 @@ namespace ToDoList.Web.Tests.Controllers.TaskControllerTests
             var controller = new TaskController(mokcedToDoListModelService.Object, mokcedTaskService.Object);
 
             //Act&Assert
-            Assert.Throws<ArgumentNullException>(() => { controller.Edit(null); });
+            Assert.Throws<ArgumentNullException>(() => { controller.Done(null); });
         }
 
         [Test]
@@ -43,46 +47,64 @@ namespace ToDoList.Web.Tests.Controllers.TaskControllerTests
             //Arrange
             var mokcedToDoListModelService = new Mock<IToDoListModelService>();
             var mokcedTaskService = new Mock<IToDoListTaskService>();
+            var mockedToDoListTask = new Mock<ToDoListTask>();
+
+            var id = Guid.NewGuid();
+            mockedToDoListTask.Object.Id = id;
+
+            mokcedTaskService.Setup(s => s.FindTaskById(id)).Returns(mockedToDoListTask.Object);
 
             var controller = new TaskController(mokcedToDoListModelService.Object, mokcedTaskService.Object);
 
             //Act
-            controller.Edit(Guid.NewGuid().ToString());
+            controller.Done(id.ToString());
 
             //Assert
-            mokcedTaskService.Verify(u => u.FindTaskById(It.IsAny<Guid>()), Times.Once);
+            mokcedTaskService.Verify(u => u.FindTaskById(id), Times.Once);
         }
 
         [Test]
-        public void ReturnDefaultView()
+        public void CallTaskServiceUpdateTask_OnlyOnce()
         {
             //Arrange
             var mokcedToDoListModelService = new Mock<IToDoListModelService>();
             var mokcedTaskService = new Mock<IToDoListTaskService>();
-
-            var controller = new TaskController(mokcedToDoListModelService.Object, mokcedTaskService.Object);
-
-            //Act&Assert
-            controller.WithCallTo(c => c.Edit(Guid.NewGuid().ToString())).ShouldRenderDefaultView();
-        }
-
-        [Test]
-        public void ReturnDefaultView_WithCorrectModel()
-        {
-            //Arrange
-            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-            var mokcedTaskService = new Mock<IToDoListTaskService>();
-            var mockedTask = new Mock<ToDoListTask>();
+            var mockedToDoListTask = new Mock<ToDoListTask>();
 
             var id = Guid.NewGuid();
-            mockedTask.Object.Id = id;
+            mockedToDoListTask.Object.Id = id;
 
-            mokcedTaskService.Setup(s => s.FindTaskById(id)).Returns(mockedTask.Object);
+            mokcedTaskService.Setup(s => s.FindTaskById(id)).Returns(mockedToDoListTask.Object);
+
+            var controller = new TaskController(mokcedToDoListModelService.Object, mokcedTaskService.Object);
+
+            //Act
+            controller.Done(id.ToString());
+
+            //Assert
+            mokcedTaskService.Verify(u => u.UpdateTask(mockedToDoListTask.Object), Times.Once);
+        }
+
+        [Test]
+        public void RedirectToIndex()
+        {
+            //Arrange
+            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
+            var mokcedTaskService = new Mock<IToDoListTaskService>();
+            var mockedToDoListTask = new Mock<ToDoListTask>();
+
+            var id = Guid.NewGuid();
+            mockedToDoListTask.Object.Id = id;
+
+            mokcedTaskService.Setup(s => s.FindTaskById(id)).Returns(mockedToDoListTask.Object);
 
             var controller = new TaskController(mokcedToDoListModelService.Object, mokcedTaskService.Object);
 
             //Act&Assert
-            controller.WithCallTo(c => c.Edit(id.ToString())).ShouldRenderDefaultView().WithModel(mockedTask.Object);
+
+            controller.WithCallTo(c => c.Done(id.ToString())).ShouldRedirectTo(r => r.Index(It.IsAny<string>()));
+
+
         }
     }
 }

@@ -119,6 +119,7 @@
     <Compile Include="Controllers\TaskControllerTests\CreatePostShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\DeleteShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\DeleteTaskShould.cs" />
+    <Compile Include="Controllers\TaskControllerTests\DoneShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\EditShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\EditTaskShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\IndexShould.cs" />
