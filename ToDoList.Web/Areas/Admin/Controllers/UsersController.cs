@@ -1,8 +1,5 @@
 ﻿using Bytes2you.Validation;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using ToDoList.Services.Contracts;
 
@@ -15,8 +12,10 @@ namespace ToDoList.Web.Areas.Admin.Controllers
         public UsersController(IUserService userSerivce)
         {
             Guard.WhenArgument(userSerivce, "UserService").IsNull().Throw();
+
             this.userSerivce = userSerivce;
         }
+
         [HttpGet]
         public ActionResult Index()
         {
