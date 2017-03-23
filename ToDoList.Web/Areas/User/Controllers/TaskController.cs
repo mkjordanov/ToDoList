@@ -116,7 +116,6 @@ namespace ToDoList.Web.Areas.User.Controllers
         [HttpPost]
         public ActionResult Done(string id)
         {
-
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
 
             var listId = TempData["ListId"];

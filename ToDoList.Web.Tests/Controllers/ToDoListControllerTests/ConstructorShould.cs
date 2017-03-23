@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
 using Moq;
-using ToDoList.Data.UnitOfWork;
-using TestStack.FluentMVCTesting;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.User.Controllers;
 using System;

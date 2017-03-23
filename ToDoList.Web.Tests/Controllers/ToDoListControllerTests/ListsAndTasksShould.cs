@@ -1,17 +1,11 @@
 ﻿using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 using ToDoList.Models;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.User.Controllers;
-using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
 {
