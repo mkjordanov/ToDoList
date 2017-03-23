@@ -144,6 +144,10 @@
     <Compile Include="Services\ToDoTaskService\DeleteTaskShould.cs" />
     <Compile Include="Services\ToDoTaskService\FindTaskByIdShould.cs" />
     <Compile Include="Services\ToDoTaskService\UpdateTaskShould.cs" />
+    <Compile Include="Services\UserService\ConstructorShould.cs" />
+    <Compile Include="Services\UserService\DeleteUserShould.cs" />
+    <Compile Include="Services\UserService\GetAllUsersShould.cs" />
+    <Compile Include="Services\UserService\GetUserByIdShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
