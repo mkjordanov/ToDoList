@@ -12,10 +12,12 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
         [Test]
         public void Render_DefulatView()
         {
+            //Arrange
             var mokcedToDoListModelService = new Mock<IToDoListModelService>();
             var mokcedUserService = new Mock<IUserService>();
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
 
+            //Act&Assert
             controller.WithCallTo(c => c.Create()).ShouldRenderDefaultView();
         }
     }

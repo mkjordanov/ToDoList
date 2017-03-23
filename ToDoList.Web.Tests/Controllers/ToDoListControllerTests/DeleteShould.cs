@@ -80,7 +80,10 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
 
             //Act & Assert
-            controller.WithCallTo(c => c.Delete(id.ToString())).ShouldRenderDefaultView().WithModel(mockedlist.Object);
+            controller
+                .WithCallTo(c => c.Delete(id.ToString()))
+                .ShouldRenderDefaultView()
+                .WithModel(mockedlist.Object);
         }
 
     }

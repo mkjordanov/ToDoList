@@ -130,6 +130,8 @@
     <Compile Include="Controllers\ToDoListControllerTests\EditListSould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\EditShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\ListsAndTasksShould.cs" />
+    <Compile Include="Controllers\UserControllerTests\ConstructorShould.cs" />
+    <Compile Include="Controllers\UserControllerTests\IndexShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\ConstructorShould.cs" />
     <Compile Include="Services\ToDoListModelService\ConstructorShould.cs" />
