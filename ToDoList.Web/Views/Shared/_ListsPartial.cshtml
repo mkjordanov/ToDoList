@@ -1,16 +1,15 @@
-﻿@model IEnumerable<ToDoList.Models.ToDoListModel>
+﻿
+@model IEnumerable<ToDoList.Models.ToDoListModel>
 
 @{
     ViewBag.Title = "ListsAndTasks";
 }
 
 <h2>ListsAndTasks</h2>
-@if (!User.IsInRole("Admin"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-}
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="table">
     <tr>
         <th>

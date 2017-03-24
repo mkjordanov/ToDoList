@@ -44,9 +44,18 @@ namespace ToDoList.Web.Areas.User.Controllers
         }
 
         [HttpGet]
-        public ActionResult ListsAndTasks()
+        public ActionResult ListsAndTasks(string id)
         {
-            var userId = User.Identity.GetUserId();
+            string userId = null;
+
+            if (User.IsInRole("Admin"))
+            {
+                userId = id;
+            }
+            else
+            {
+                userId = User.Identity.GetUserId();
+            }
             var currentUser = this.userService.GetUserById(userId);
             return this.View(currentUser.ToDoLists);
         }

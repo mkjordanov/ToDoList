@@ -5,10 +5,12 @@
 }
 
 <h2>Tasks</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create", new { id = Model.Id })
-</p>
+@if (!User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create", new { id = Model.Id })
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -48,14 +50,14 @@
                 @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
-                @using (Html.BeginForm("Done","Task",new {id =item.Id }))
+                @using (Html.BeginForm("Done", "Task", new { id = item.Id }))
                 {
-                    string compleated="Done";
-                    if (item.IsDone==true)
+                    string compleated = "Done";
+                    if (item.IsDone == true)
                     {
                         compleated = "unDone";
                     }
-                    <input type="submit" value=@compleated class="btn btn-group-sm btn-success"  />
+                    <input type="submit" value=@compleated class="btn btn-group-sm btn-success" />
                 }
             </td>
             <td>
