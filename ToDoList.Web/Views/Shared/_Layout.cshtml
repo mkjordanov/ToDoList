@@ -23,9 +23,12 @@
                 <ul class="nav navbar-nav">
                     @if (Request.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Lists And Tasks", "ListsAndTasks", "ToDoList", new { Area= "User"},new { })</li>
-                        <li>@Html.ActionLink("All Users", "Index", "Users", new { Area = "Admin" }, new { })</li>
+                        <li>@Html.ActionLink("Lists And Tasks", "ListsAndTasks", "ToDoList", new { Area = "User" }, new { })</li>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("All Users", "Index", "Users", new { Area = "Admin" }, new { })</li>
 
+                        }
                     }
 
                 </ul>

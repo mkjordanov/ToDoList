@@ -8,7 +8,7 @@ using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Areas.User.Controllers
 {
-    [Authorize(Roles ="User, Admin")]
+    [Authorize]
     public class ToDoListController : Controller
     {
         private readonly IToDoListModelService toDoListModelService;
