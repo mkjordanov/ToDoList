@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using ToDoList.Services.Contracts;
+using ToDoList.Web.Areas.User.Models;
 
 namespace ToDoList.Web.Areas.Admin.Controllers
 {
@@ -41,6 +42,36 @@ namespace ToDoList.Web.Areas.Admin.Controllers
 
             var userToBeDeleted = this.userSerivce.GetUserById(id);
             this.userSerivce.DeleteUser(userToBeDeleted);
+
+            return RedirectToAction("Index", "Users");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(string id)
+        {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+
+            var user = this.userSerivce.GetUserById(id);
+            return this.View(user);
+        }
+
+        [HttpPost]
+        [ActionName("Edit")]
+        public ActionResult EditUsers(string id, UserViewModel editUser)
+        {
+            Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(editUser, "editList").IsNull().Throw();
+            Guard.WhenArgument(editUser.Email, "editUser.Email").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(editUser.UserName, "editUser.UserName").IsNullOrEmpty().Throw();
+
+            var userToBeEdited = this.userSerivce.GetUserById(id);
+
+            userToBeEdited.FirstName = editUser.FirstName;
+            userToBeEdited.LastName= editUser.LastName;
+            userToBeEdited.Email= editUser.Email;
+            userToBeEdited.UserName= editUser.UserName;
+
+            this.userSerivce.UpdateUser(userToBeEdited);
 
             return RedirectToAction("Index", "Users");
         }

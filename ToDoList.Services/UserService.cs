@@ -1,4 +1,5 @@
 ﻿using Bytes2you.Validation;
+using System;
 using System.Collections.Generic;
 using ToDoList.Data.EFRepository;
 using ToDoList.Data.UnitOfWork;
@@ -38,9 +39,12 @@ namespace ToDoList.Services
             return searchedUser;
         }
 
-        //public void UpdateUser(ApplicationUser user)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void UpdateUser(ApplicationUser user)
+        {
+            Guard.WhenArgument(user, "user").IsNull().Throw();
+
+            this.userRepository.Update(user);
+            this.unitOfWork.Commit();
+        }
     }
 }

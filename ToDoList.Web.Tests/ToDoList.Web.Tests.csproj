@@ -133,6 +133,8 @@
     <Compile Include="Controllers\UserControllerTests\ConstructorShould.cs" />
     <Compile Include="Controllers\UserControllerTests\DeleteShould.cs" />
     <Compile Include="Controllers\UserControllerTests\DeleteUserShould.cs" />
+    <Compile Include="Controllers\UserControllerTests\EditShould.cs" />
+    <Compile Include="Controllers\UserControllerTests\EditUsersShould.cs" />
     <Compile Include="Controllers\UserControllerTests\IndexShould.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\ConstructorShould.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="Services\UserService\DeleteUserShould.cs" />
     <Compile Include="Services\UserService\GetAllUsersShould.cs" />
     <Compile Include="Services\UserService\GetUserByIdShould.cs" />
+    <Compile Include="Services\UserService\UpdateUserShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />

@@ -8,6 +8,6 @@ namespace ToDoList.Services.Contracts
         IEnumerable<ApplicationUser> GetAllUsers();
         ApplicationUser GetUserById(object id);
         void DeleteUser(ApplicationUser user);
-        //void UpdateUser(ApplicationUser user);
+        void UpdateUser(ApplicationUser user);
     }
 }
