@@ -142,7 +142,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             var listmodel = new ToDoListViewModel() { name = "name", isPublic = true, category = "3" };
 
             //Act&Assert
-            controller.WithCallTo(c => c.EditList(id.ToString(), listmodel)).ShouldRedirectTo(r => r.ListsAndTasks);
+            controller.WithCallTo(c => c.EditList(id.ToString(), listmodel)).ShouldRedirectTo(r => r.ListsAndTasks(It.IsAny<string>()));
         }
 
 

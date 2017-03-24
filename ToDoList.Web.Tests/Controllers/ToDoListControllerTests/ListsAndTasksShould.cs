@@ -32,7 +32,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             controller.ControllerContext = controllerContext.Object;
 
             //Act
-            controller.ListsAndTasks();
+            controller.ListsAndTasks(It.IsAny<string>());
 
             //Assert
             mokcedUserService.Verify(u => u.GetUserById(It.IsAny<string>()), Times.Once);
@@ -58,7 +58,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             controller.ControllerContext = controllerContext.Object;
 
             //Act & Assert
-            controller.WithCallTo(c => c.ListsAndTasks()).ShouldRenderDefaultView();
+            controller.WithCallTo(c => c.ListsAndTasks(It.IsAny<string>())).ShouldRenderDefaultView();
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             controller.ControllerContext = controllerContext.Object;
 
             //Act & Assert
-            controller.WithCallTo(c => c.ListsAndTasks()).ShouldRenderDefaultView().WithModel(user.ToDoLists);
+            controller.WithCallTo(c => c.ListsAndTasks(It.IsAny<string>())).ShouldRenderDefaultView().WithModel(user.ToDoLists);
         }
     }
 }

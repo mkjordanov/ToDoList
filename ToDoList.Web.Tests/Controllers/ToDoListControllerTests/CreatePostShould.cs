@@ -105,7 +105,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
 
             //Act&Assert
             controller.WithCallTo(c => c.Create(mockedToDoListViewModel.Object))
-                .ShouldRedirectTo(r => r.ListsAndTasks());
+                .ShouldRedirectTo(r => r.ListsAndTasks(It.IsAny<string>()));
         }
 
         [Test]

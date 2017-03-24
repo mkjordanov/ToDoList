@@ -80,7 +80,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
 
             //Act&Assert
             controller.WithCallTo(c => c.DeleteList(Guid.NewGuid().ToString()))
-                .ShouldRedirectTo(r => r.ListsAndTasks());
+                .ShouldRedirectTo(r => r.ListsAndTasks(It.IsAny<string>()));
         }
     }
 }
