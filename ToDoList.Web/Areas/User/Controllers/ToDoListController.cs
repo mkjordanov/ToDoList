@@ -56,6 +56,7 @@ namespace ToDoList.Web.Areas.User.Controllers
             {
                 userId = User.Identity.GetUserId();
             }
+            var a = this.toDoListModelService.GetAllByUserId(userId);
             var currentUser = this.userService.GetUserById(userId);
             return this.View(currentUser.ToDoLists);
         }

@@ -5,6 +5,7 @@ using ToDoList.Data.EFRepository;
 using ToDoList.Data.UnitOfWork;
 using ToDoList.Models;
 using ToDoList.Services.Contracts;
+using ToDoList.Services.Models;
 
 namespace ToDoList.Services
 {
@@ -36,6 +37,7 @@ namespace ToDoList.Services
         {
             Guard.WhenArgument(id, "id").IsNull().Throw();
             var searchedUser = this.userRepository.GetById(id);
+            var mappedUser = new UserModel(searchedUser);
             return searchedUser;
         }
 

@@ -63,6 +63,9 @@
   <ItemGroup>
     <Compile Include="Contracts\IToDoListModelService.cs" />
     <Compile Include="Contracts\IToDoListTaskService.cs" />
+    <Compile Include="Models\ListModel.cs" />
+    <Compile Include="Models\TaskModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="ToDoListModelService.cs" />
     <Compile Include="ToDoListTaskService.cs" />
     <Compile Include="UserService.cs" />

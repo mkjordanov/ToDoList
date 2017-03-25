@@ -7,6 +7,7 @@ using ToDoList.Data.UnitOfWork;
 using ToDoList.Models;
 using ToDoList.Models.Enums;
 using ToDoList.Services.Contracts;
+using ToDoList.Services.Models;
 
 namespace ToDoList.Services
 {
@@ -46,8 +47,9 @@ namespace ToDoList.Services
         public ToDoListModel GetListById(object id)
         {
             Guard.WhenArgument(id, "id").IsNull().Throw();
-
-            return this.toDoListModelRepository.GetById(id);
+            var list = this.toDoListModelRepository.GetById(id);
+            var mappedlist = new ListModel(list);
+            return list;
         }
         public void DeleteToDoList(ToDoListModel ToDoList)
         {
