@@ -37,7 +37,7 @@ namespace ToDoList.Services
         {
             Guard.WhenArgument(id, "id").IsNull().Throw();
             var searchedUser = this.userRepository.GetById(id);
-            var mappedUser = new UserModel(searchedUser);
+            //var mappedUser = new UserModel(searchedUser);
             return searchedUser;
         }
 

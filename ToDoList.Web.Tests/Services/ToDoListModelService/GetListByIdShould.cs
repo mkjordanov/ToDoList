@@ -41,7 +41,7 @@ namespace ToDoList.Web.Tests.Services.ToDoListModelService
 
             var toDoListModelService = new ToDoList.Services.ToDoListModelService(mockedToDoListModelRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
-            var obj = "sample object";
+            var obj = Guid.NewGuid();
             //Act
             toDoListModelService.GetListById(obj);
             //Assert
