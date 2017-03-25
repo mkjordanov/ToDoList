@@ -26,6 +26,14 @@ namespace ToDoList.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryUi").Include(
+                     "~/Scripts/jquery-ui-1.12.1.min.js"
+                     ));
+
+            bundles.Add(new StyleBundle("~/Content/csss").Include(
+                      "~/Content/themes/base/jquery-ui.min.css"));
+            
         }
     }
 }

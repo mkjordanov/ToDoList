@@ -1,4 +1,4 @@
-﻿@model ToDoList.Models.ToDoListTask
+﻿@model ToDoList.Web.Models.TaskViewModels.TaskViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -35,7 +35,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ExpirationDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ExpirationDate, new {htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -59,3 +59,14 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+    $(function () {
+        $('#ExpirationDate').datepicker({
+            minDate: new Date(),
+            dateFormat: 'yy/mm/dd'
+        });
+    })
+</script>}
+

@@ -39,20 +39,16 @@ namespace ToDoList.Web.Areas.User.Controllers
         [HttpPost]
         public ActionResult Create(string id, TaskViewModel newTask)
         {
+            if (!ModelState.IsValid)
+            {
+                 return this.View(newTask);
+            }
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(newTask, "newTask").IsNull().Throw();
-            Guard.WhenArgument(newTask.category, "newTask.category").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(newTask.expirationDate, "newTask.expirationDate").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(newTask.priority, "newTask.priority").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(newTask.task, "newTask.task").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(newTask.ExpirationDate, "newTask.expirationDate").IsLessThan(DateTime.Today).Throw();
 
             var usedList = this.toDoListModelService.GetListById(Guid.Parse(id));
 
-            var taskCategory = Enum.Parse(typeof(CategoryTypes), newTask.category);
-            var taskPriority = Enum.Parse(typeof(PriorityTypes), newTask.priority);
-            var taskExpirationDate = DateTime.Parse(newTask.expirationDate);
-
-            this.taskService.CreateTask(usedList, (CategoryTypes)taskCategory, (PriorityTypes)taskPriority, taskExpirationDate, newTask.task);
+            this.taskService.CreateTask(usedList, newTask.Category, newTask.Priority, newTask.ExpirationDate, newTask.Task);
             return RedirectToAction("Index", "Task", new { id = id });
         }
 
@@ -93,20 +89,20 @@ namespace ToDoList.Web.Areas.User.Controllers
         [ActionName("Edit")]
         public ActionResult EditTask(string id, TaskViewModel editTask)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(editTask);
+            }
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(editTask, "editTask").IsNull().Throw();
-            Guard.WhenArgument(editTask.category, "editTask.category").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(editTask.expirationDate, "editTask.expirationDate").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(editTask.priority, "editTask.priority").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(editTask.task, "editTask.task").IsNullOrEmpty().Throw();
+            Guard.WhenArgument(editTask.ExpirationDate, "editTask.expirationDate").IsLessThan(DateTime.Today).Throw();
 
             var listId = TempData["ListId"];
             var taskToBeEdited = this.taskService.FindTaskById(Guid.Parse(id));
 
-            taskToBeEdited.Task = editTask.task;
-            taskToBeEdited.Category = (CategoryTypes)Enum.Parse(typeof(CategoryTypes), editTask.category);
-            taskToBeEdited.Priority = (PriorityTypes)Enum.Parse(typeof(PriorityTypes), editTask.priority);
-            taskToBeEdited.ExpirationDate= DateTime.Parse(editTask.expirationDate);
+            taskToBeEdited.Task = editTask.Task;
+            taskToBeEdited.Category = editTask.Category;
+            taskToBeEdited.Priority =  editTask.Priority;
+            taskToBeEdited.ExpirationDate= editTask.ExpirationDate;
 
             this.taskService.UpdateTask(taskToBeEdited);
 
