@@ -10,7 +10,7 @@ namespace ToDoList.Web.Models.TaskViewModels
     public class TaskViewModel
     {
         [Required]
-        [MaxLength(100, ErrorMessage = "Task must not be longer than 100 characters")]
+        [MaxLength(100)]
         public string Task { get; set; }
 
         [Required]

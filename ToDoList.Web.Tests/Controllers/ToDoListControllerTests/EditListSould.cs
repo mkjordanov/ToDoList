@@ -3,6 +3,7 @@ using NUnit.Framework;
 using System;
 using TestStack.FluentMVCTesting;
 using ToDoList.Models;
+using ToDoList.Models.Enums;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.User.Controllers;
 using ToDoList.Web.Models.TaskViewModels;
@@ -36,73 +37,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             //Act&Assert
             Assert.Throws<ArgumentNullException>(() => { controller.EditList(null, It.IsAny<ToDoListViewModel>()); });
         }
-
-        [Test]
-        public void Throw_WhenEditListIsNull()
-        {
-            //Arrange
-            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-            var mokcedUserService = new Mock<IUserService>();
-
-            var id = Guid.NewGuid();
-            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-            //Act&Assert
-            Assert.Throws<ArgumentNullException>(() => { controller.EditList(id.ToString(), null); });
-        }
-        [Test]
-        public void Throw_WhenEditListsNameIsNull()
-        {
-            //Arrange
-            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-            var mokcedUserService = new Mock<IUserService>();
-
-            var id = Guid.NewGuid();
-            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-            var listmodel = new ToDoListViewModel() { name = null, isPublic = true, category = "3" };
-            //Act&Assert
-            Assert.Throws<ArgumentNullException>(() => { controller.EditList(id.ToString(), listmodel); });
-        }
-
-        [Test]
-        public void Throw_WhenEditListsNameIsEmpty()
-        {
-            //Arrange
-            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-            var mokcedUserService = new Mock<IUserService>();
-
-            var id = Guid.NewGuid();
-            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-            var listmodel = new ToDoListViewModel() { name = string.Empty, isPublic = true, category = "3" };
-            //Act&Assert
-            Assert.Throws<ArgumentException>(() => { controller.EditList(id.ToString(), listmodel); });
-        }
-
-        [Test]
-        public void Throw_WhenEditListsCategoryIsNull()
-        {
-            //Arrange
-            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-            var mokcedUserService = new Mock<IUserService>();
-
-            var id = Guid.NewGuid();
-            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-            var listmodel = new ToDoListViewModel() { name = "name", isPublic = true, category = null };
-            //Act&Assert
-            Assert.Throws<ArgumentNullException>(() => { controller.EditList(id.ToString(), listmodel); });
-        }
-        [Test]
-        public void Throw_WhenEditListsCategoryIsEmpty()
-        {
-            //Arrange
-            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-            var mokcedUserService = new Mock<IUserService>();
-
-            var id = Guid.NewGuid();
-            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-            var listmodel = new ToDoListViewModel() { name = "name", isPublic = true, category = string.Empty };
-            //Act&Assert
-            Assert.Throws<ArgumentException>(() => { controller.EditList(id.ToString(), listmodel); });
-        }
+      
         [Test]
         public void CallToDoListModelServiceMethodGetListById_OnlyOnce()
         {
@@ -117,7 +52,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             mokcedToDoListModelService.Setup(s => s.GetListById(id)).Returns(mockedList.Object);
 
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-            var listmodel = new ToDoListViewModel() { name = "name", isPublic = true, category = "3" };
+            var listmodel = new ToDoListViewModel() { Name = "name", IsPublic = true, Category = CategoryTypes.Entertainment};
             
             //Act
             controller.EditList(id.ToString(), listmodel);
@@ -139,7 +74,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             mokcedToDoListModelService.Setup(s => s.GetListById(id)).Returns(mockedList.Object);
 
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-            var listmodel = new ToDoListViewModel() { name = "name", isPublic = true, category = "3" };
+            var listmodel = new ToDoListViewModel() { Name = "name", IsPublic = true, Category = CategoryTypes.Entertainment };
 
             //Act&Assert
             controller.WithCallTo(c => c.EditList(id.ToString(), listmodel)).ShouldRedirectTo(r => r.ListsAndTasks(It.IsAny<string>()));

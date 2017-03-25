@@ -59,10 +59,11 @@ namespace ToDoList.Web.Areas.Admin.Controllers
         [ActionName("Edit")]
         public ActionResult EditUsers(string id, UserViewModel editUser)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(editUser);
+            }
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(editUser, "editList").IsNull().Throw();
-            Guard.WhenArgument(editUser.Email, "editUser.Email").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(editUser.UserName, "editUser.UserName").IsNullOrEmpty().Throw();
 
             var userToBeEdited = this.userSerivce.GetUserById(id);
 

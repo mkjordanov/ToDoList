@@ -13,9 +13,6 @@
     <div class="form-horizontal">
         <h4>ToDoListTask</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
         <div class="form-group">
             @Html.LabelFor(model => model.Task, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -59,3 +56,5 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@Scripts.Render("~/bundles/datepicker");

@@ -15,73 +15,7 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
     [TestFixture]
     public class CreatePostShould
     {
-        [Test]
-        public void Throw_WhenCategoryIsEmppty()
-        {
-            //Arrange
-            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-            var mokcedUserService = new Mock<IUserService>();
-            var mockedToDoListViewModel = new Mock<ToDoListViewModel>();
-            mockedToDoListViewModel.Object.category = string.Empty;
-            mockedToDoListViewModel.Object.isPublic = true;
-            mockedToDoListViewModel.Object.name = "Name";
-
-            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-
-            //Act&Assert
-            Assert.Throws<ArgumentException>(() => { controller.Create(mockedToDoListViewModel.Object); });
-        }
-        [Test]
-        public void Throw_WhenCategoryIsNull()
-        {
-            //Arrange
-            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-            var mokcedUserService = new Mock<IUserService>();
-            var mockedToDoListViewModel = new Mock<ToDoListViewModel>();
-            mockedToDoListViewModel.Object.category = null;
-            mockedToDoListViewModel.Object.isPublic = true;
-            mockedToDoListViewModel.Object.name = "Name";
-
-            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-
-            //Act&Assert
-            Assert.Throws<ArgumentNullException>(() => { controller.Create(mockedToDoListViewModel.Object); });
-        }
-
-        [Test]
-        public void Throw_WhenNameIsNull()
-        {
-            //Arrange
-            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-            var mokcedUserService = new Mock<IUserService>();
-            var mockedToDoListViewModel = new Mock<ToDoListViewModel>();
-            mockedToDoListViewModel.Object.category = "3";
-            mockedToDoListViewModel.Object.isPublic = true;
-            mockedToDoListViewModel.Object.name = null;
-
-            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-
-            //Act&Assert
-            Assert.Throws<ArgumentNullException>(() => { controller.Create(mockedToDoListViewModel.Object); });
-        }
-
-        [Test]
-        public void Throw_WhenNameIsEmpty()
-        {
-            //Arrange
-            var mokcedToDoListModelService = new Mock<IToDoListModelService>();
-            var mokcedUserService = new Mock<IUserService>();
-            var mockedToDoListViewModel = new Mock<ToDoListViewModel>();
-            mockedToDoListViewModel.Object.category = "3";
-            mockedToDoListViewModel.Object.isPublic = true;
-            mockedToDoListViewModel.Object.name = string.Empty;
-
-            var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
-
-            //Act&Assert
-            Assert.Throws<ArgumentException>(() => { controller.Create(mockedToDoListViewModel.Object); });
-        }
-
+       
         [Test]
         public void Redirect_WithCorrectParameters()
         {
@@ -90,9 +24,9 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             var mokcedUserService = new Mock<IUserService>();
 
             var mockedToDoListViewModel = new Mock<ToDoListViewModel>();
-            mockedToDoListViewModel.Object.category = "3";
-            mockedToDoListViewModel.Object.isPublic = true;
-            mockedToDoListViewModel.Object.name = "Name";
+            mockedToDoListViewModel.Object.Category = CategoryTypes.Entertainment;
+            mockedToDoListViewModel.Object.IsPublic = true;
+            mockedToDoListViewModel.Object.Name = "Name";
 
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
 
@@ -116,9 +50,9 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             var mokcedUserService = new Mock<IUserService>();
 
             var mockedToDoListViewModel = new Mock<ToDoListViewModel>();
-            mockedToDoListViewModel.Object.category = "3";
-            mockedToDoListViewModel.Object.isPublic = true;
-            mockedToDoListViewModel.Object.name = "Name";
+            mockedToDoListViewModel.Object.Category = CategoryTypes.Entertainment;
+            mockedToDoListViewModel.Object.IsPublic = true;
+            mockedToDoListViewModel.Object.Name = "Name";
 
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
 
@@ -143,9 +77,9 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             var mokcedUserService = new Mock<IUserService>();
 
             var mockedToDoListViewModel = new Mock<ToDoListViewModel>();
-            mockedToDoListViewModel.Object.category = "3";
-            mockedToDoListViewModel.Object.isPublic = true;
-            mockedToDoListViewModel.Object.name = "Name";
+            mockedToDoListViewModel.Object.Category = CategoryTypes.Entertainment;
+            mockedToDoListViewModel.Object.IsPublic = true;
+            mockedToDoListViewModel.Object.Name = "Name";
 
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
 

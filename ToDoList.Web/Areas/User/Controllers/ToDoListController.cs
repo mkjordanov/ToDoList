@@ -3,7 +3,6 @@ using System;
 using System.Web.Mvc;
 using ToDoList.Services.Contracts;
 using Microsoft.AspNet.Identity;
-using ToDoList.Models.Enums;
 using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Areas.User.Controllers
@@ -31,14 +30,15 @@ namespace ToDoList.Web.Areas.User.Controllers
         [HttpPost]
         public ActionResult Create(ToDoListViewModel newList)
         {
-            Guard.WhenArgument(newList.category, "Categoty").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(newList.name, "Categoty").IsNullOrEmpty().Throw();
+            if (!ModelState.IsValid)
+            {
+                return this.View(newList);
+            }
 
-            var selectedCategory = Enum.Parse(typeof(CategoryTypes), newList.category);
             var userId = User.Identity.GetUserId();
             var currentUser = this.userService.GetUserById(userId);
 
-            this.toDoListModelService.CreateToDoList(currentUser, newList.name, newList.isPublic, (CategoryTypes)selectedCategory);
+            this.toDoListModelService.CreateToDoList(currentUser, newList.Name, newList.IsPublic, newList.Category);
 
             return RedirectToAction("ListsAndTasks", "ToDoList");
         }
@@ -93,16 +93,17 @@ namespace ToDoList.Web.Areas.User.Controllers
         [ActionName("Edit")]
         public ActionResult EditList(string id, ToDoListViewModel editList)
         {
+            if (!ModelState.IsValid)
+            {
+                return this.View(editList);
+            }
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(editList, "editList").IsNull().Throw();
-            Guard.WhenArgument(editList.name, "editList.name").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(editList.category, "editList.category").IsNullOrEmpty().Throw();
 
             var listToBeEdited = this.toDoListModelService.GetListById(Guid.Parse(id));
 
-            listToBeEdited.Name = editList.name;
-            listToBeEdited.IsPublic = editList.isPublic;
-            listToBeEdited.Category = (CategoryTypes)Enum.Parse(typeof(CategoryTypes), editList.category);
+            listToBeEdited.Name = editList.Name;
+            listToBeEdited.IsPublic = editList.IsPublic;
+            listToBeEdited.Category = editList.Category;
             listToBeEdited.Date = DateTime.Now;
 
             this.toDoListModelService.UpdateToDoList(listToBeEdited);

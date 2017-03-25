@@ -1,11 +1,6 @@
-﻿
-using Moq;
+﻿using Moq;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestStack.FluentMVCTesting;
 using ToDoList.Models;
 using ToDoList.Services.Contracts;
@@ -38,72 +33,6 @@ namespace ToDoList.Web.Tests.Controllers.UserControllerTests
             Assert.Throws<ArgumentNullException>(() => { controller.EditUsers(null, It.IsAny<UserViewModel>()); });
         }
 
-        [Test]
-        public void Throw_WhenEditUserIsNull()
-        {
-            //Arrange
-            var mockedUserService = new Mock<IUserService>();
-
-            var id = Guid.NewGuid();
-            var controller = new UsersController(mockedUserService.Object);
-
-            //Act&Assert
-            Assert.Throws<ArgumentNullException>(() => { controller.EditUsers(id.ToString(), null); });
-        }
-        [Test]
-        public void Throw_WhenEditUserEmailIsNull()
-        {
-            //Arrange
-            var mockedUserService = new Mock<IUserService>();
-
-            var id = Guid.NewGuid();
-            var controller = new UsersController(mockedUserService.Object);
-
-            var userModel = new UserViewModel() {FirstName="sampleName",LastName="sampleName",Email=null, UserName="userName" };
-            //Act&Assert
-            Assert.Throws<ArgumentNullException>(() => { controller.EditUsers(id.ToString(), userModel); });
-        }
-
-        [Test]
-        public void Throw_WhenEditUserEmailIsEmpty()
-        {
-            //Arrange
-            var mockedUserService = new Mock<IUserService>();
-
-            var id = Guid.NewGuid();
-            var controller = new UsersController(mockedUserService.Object);
-
-            var userModel = new UserViewModel() { FirstName = "sampleName", LastName = "sampleName", Email = string.Empty, UserName = "userName" };
-            //Act&Assert
-            Assert.Throws<ArgumentException>(() => { controller.EditUsers(id.ToString(), userModel); });
-        }
-
-        [Test]
-        public void Throw_WhenEditUserUserNameIsNull()
-        {
-            //Arrange
-            var mockedUserService = new Mock<IUserService>();
-
-            var id = Guid.NewGuid();
-            var controller = new UsersController(mockedUserService.Object);
-
-            var userModel = new UserViewModel() { FirstName = "sampleName", LastName = "sampleName", Email = "Emial", UserName = null };
-            //Act&Assert
-            Assert.Throws<ArgumentNullException>(() => { controller.EditUsers(id.ToString(), userModel); });
-        }
-        [Test]
-        public void Throw_WhenEditUserUserNameIsEmpty()
-        {
-            //Arrange
-            var mockedUserService = new Mock<IUserService>();
-
-            var id = Guid.NewGuid();
-            var controller = new UsersController(mockedUserService.Object);
-
-            var userModel = new UserViewModel() { FirstName = "sampleName", LastName = "sampleName", Email = "Emial", UserName = string.Empty };
-            //Act&Assert
-            Assert.Throws<ArgumentException>(() => { controller.EditUsers(id.ToString(), userModel); });
-        }
         [Test]
         public void CallUsersServiceMethodGetUserById_OnlyOnce()
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using ToDoList.Models.Enums;
 
 namespace ToDoList.Web.Models.TaskViewModels
 {
@@ -10,11 +11,11 @@ namespace ToDoList.Web.Models.TaskViewModels
     {
 
         [Required]
-        [MaxLength(100, ErrorMessage = "List's name must be less than 100 characters")]
-        public string name { get; set; }
+        [MaxLength(100)]
+        public string Name { get; set; }
         [Required]
-        public bool isPublic { get; set; }
+        public bool IsPublic { get; set; }
         [Required]
-        public string category { get; set; }
+        public CategoryTypes Category { get; set; }
     }
 }
