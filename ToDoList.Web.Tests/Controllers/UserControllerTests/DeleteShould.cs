@@ -9,6 +9,7 @@ using TestStack.FluentMVCTesting;
 using ToDoList.Models;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.Admin.Controllers;
+using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Tests.Controllers.UserControllerTests
 {
@@ -39,19 +40,23 @@ namespace ToDoList.Web.Tests.Controllers.UserControllerTests
         }
 
         [Test]
-        public void CallTaskServiceGetUserById_OnlyOnce()
+        public void CallUserServiceGetUserById_OnlyOnce()
         {
             //Arrange
             var mokcedUserService = new Mock<IUserService>();
 
             var controller = new UsersController(mokcedUserService.Object);
 
-            var id = Guid.NewGuid().ToString();
+            var userId = Guid.NewGuid();
+            var lists = new List<ToDoListModel>();
+            var user = new ApplicationUser() { Id = userId.ToString(), ToDoLists = lists };
+
+            mokcedUserService.Setup(x => x.GetUserById(userId.ToString())).Returns(user);
             //Act
-            controller.Delete(id.ToString());
+            controller.Delete(userId.ToString());
 
             //Assert
-            mokcedUserService.Verify(u => u.GetUserById(id.ToString()), Times.Once);
+            mokcedUserService.Verify(u => u.GetUserById(userId.ToString()), Times.Once);
         }
 
         [Test]
@@ -60,27 +65,39 @@ namespace ToDoList.Web.Tests.Controllers.UserControllerTests
             //Arrange
             var mokcedUserService = new Mock<IUserService>();
 
+            var userId = Guid.NewGuid();
+            var lists = new List<ToDoListModel>();
+            var user = new ApplicationUser() { Id = userId.ToString(), ToDoLists = lists };
+
+            mokcedUserService.Setup(x => x.GetUserById(userId.ToString())).Returns(user);
+
             var controller = new UsersController(mokcedUserService.Object);
             //Act&Assert
-            controller.WithCallTo(c => c.Delete(Guid.NewGuid().ToString())).ShouldRenderDefaultView();
+            controller.WithCallTo(c => c.Delete(userId.ToString())).ShouldRenderDefaultView();
         }
 
-        //[Test]
-        //public void ReturnDefaultView_WithCorrectModel()
-        //{
-        //    //Arrange
-        //    var mokcedUserService = new Mock<IUserService>();
-        //    var mockedUser = new Mock<ApplicationUser>();
+        [Test]
+        public void ReturnDefaultView_WithCorrectModel()
+        {
+            //Arrange
+            var mokcedUserService = new Mock<IUserService>();
 
-        //    var id = Guid.NewGuid();
-        //    mockedUser.Object.Id = id.ToString();
+            var userId = Guid.NewGuid();
+            var lists = new List<ToDoListModel>();
+            var user = new ApplicationUser() { Id = userId.ToString(), ToDoLists = lists, FirstName = "Sample name" };
 
-        //    mokcedUserService.Setup(s => s.GetUserById(id)).Returns(mockedUser.Object);
+            mokcedUserService.Setup(x => x.GetUserById(userId.ToString())).Returns(user);
 
-        //    var controller = new UsersController(mokcedUserService.Object);
+            var controller = new UsersController(mokcedUserService.Object);
 
-        //    //Act&Assert
-        //    controller.WithCallTo(c => c.Delete(id.ToString())).ShouldRenderDefaultView().WithModel(mockedUser.Object);
-        //}
+            //Act&Assert
+            controller.WithCallTo(c => c.Delete(userId.ToString()))
+                .ShouldRenderDefaultView()
+                .WithModel<UserViewModel>(actualUser =>
+                {
+                    Assert.AreSame(user.Id, actualUser.Id);
+                    Assert.AreSame(user.FirstName, actualUser.FirstName);
+                });
+        }
     }
 }

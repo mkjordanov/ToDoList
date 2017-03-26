@@ -22,7 +22,8 @@ namespace ToDoList.Web.Areas.Admin.Controllers
         public ActionResult Index()
         {
             var users = this.userSerivce.GetAllUsers().ToList();
-            return View(users);
+            var mappedUsers = users.Select(user => new UserViewModel(user)).ToList();
+            return View(mappedUsers);
         }
         [HttpGet]
         public ActionResult Delete(string id)
@@ -30,8 +31,8 @@ namespace ToDoList.Web.Areas.Admin.Controllers
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
 
             var user = this.userSerivce.GetUserById(id);
-
-            return this.View(user);
+            var mappedUser = new UserViewModel(user);
+            return this.View(mappedUser);
         }
 
         [HttpPost]
@@ -52,7 +53,8 @@ namespace ToDoList.Web.Areas.Admin.Controllers
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
 
             var user = this.userSerivce.GetUserById(id);
-            return this.View(user);
+            var mappedUser = new UserViewModel(user);
+            return this.View(mappedUser);
         }
 
         [HttpPost]

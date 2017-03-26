@@ -13,6 +13,7 @@ namespace ToDoList.Web.Models.TaskViewModels
         public UserViewModel() {}
         public UserViewModel(ApplicationUser dbUser)
         {
+            this.Id = dbUser.Id;
             this.FirstName = dbUser.FirstName;
             this.LastName = dbUser.LastName;
             this.UserName = dbUser.UserName;
@@ -29,7 +30,6 @@ namespace ToDoList.Web.Models.TaskViewModels
         [EmailAddress]
         public string Email { get; set; }
         [Required]
-        [MaxLength(12)]
         public string UserName { get; set; }
 
         public ICollection<ToDoListViewModel> Lists

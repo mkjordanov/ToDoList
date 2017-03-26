@@ -9,6 +9,7 @@ using TestStack.FluentMVCTesting;
 using ToDoList.Models;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.Admin.Controllers;
+using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Tests.Controllers.UserControllerTests
 {
@@ -57,9 +58,9 @@ namespace ToDoList.Web.Tests.Controllers.UserControllerTests
             controller
                 .WithCallTo(c => c.Index())
                 .ShouldRenderDefaultView()
-                .WithModel<List<ApplicationUser>>(actual =>
+                .WithModel<List<UserViewModel>>(actual =>
                 {
-                    Assert.AreEqual(actual, expectedList);
+                    Assert.AreEqual(actual[0].FirstName, expectedList[0].FirstName);
                 });
         }
     }
