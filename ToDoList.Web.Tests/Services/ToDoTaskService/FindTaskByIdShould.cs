@@ -66,7 +66,7 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         }
         [Test]
 
-        public void Retrun_WheGiveValidParameters()
+        public void Retrun_WhenGiveValidParameters()
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();

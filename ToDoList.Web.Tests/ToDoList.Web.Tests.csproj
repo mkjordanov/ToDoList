@@ -123,6 +123,8 @@
     <Compile Include="Controllers\TaskControllerTests\EditShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\EditTaskShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\IndexShould.cs" />
+    <Compile Include="Controllers\TodayControllerTests\ConstructorShould.cs" />
+    <Compile Include="Controllers\TodayControllerTests\IndexShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\CreateGetShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\CreatePostShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\DeleteListShould.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Services\ToDoTaskService\CreateTaskShould.cs" />
     <Compile Include="Services\ToDoTaskService\DeleteTaskShould.cs" />
     <Compile Include="Services\ToDoTaskService\FindTaskByIdShould.cs" />
+    <Compile Include="Services\ToDoTaskService\GetAllByUserIdShould.cs" />
     <Compile Include="Services\ToDoTaskService\UpdateTaskShould.cs" />
     <Compile Include="Services\UserService\ConstructorShould.cs" />
     <Compile Include="Services\UserService\DeleteUserShould.cs" />

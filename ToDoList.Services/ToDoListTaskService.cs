@@ -65,9 +65,11 @@ namespace ToDoList.Services
 
         public IEnumerable<ToDoListTask> GetAllByUserId(object id)
         {
+            Guard.WhenArgument(id, "id").IsNull().Throw();
+
             var userLists = this.userRepository.GetById(id).ToDoLists;
             var tasks = userLists.SelectMany(l => l.Tasks.Where(t => t.ExpirationDate == DateTime.Now.Date));
-            return tasks;
+            return tasks.ToList();
         }
 
         public IEnumerable<ToDoListTask> GetAllByUserAndCategory(object id, CategoryTypes category)
