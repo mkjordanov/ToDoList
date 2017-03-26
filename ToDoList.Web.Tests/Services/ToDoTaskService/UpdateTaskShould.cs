@@ -16,9 +16,10 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
 
-            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUnitOfWork.Object);
+            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object,mockedUserRepository.Object, mockedUnitOfWork.Object);
 
             //Act & Assert
 
@@ -32,10 +33,11 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
             var mockedTask = new Mock<ToDoListTask>();
 
-            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUnitOfWork.Object);
+            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
             //Act
             taskService.UpdateTask(mockedTask.Object);
@@ -49,10 +51,11 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
             var mockedTask = new Mock<ToDoListTask>();
 
-            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUnitOfWork.Object);
+            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object,mockedUserRepository.Object, mockedUnitOfWork.Object);
 
             //Act
             taskService.UpdateTask(mockedTask.Object);

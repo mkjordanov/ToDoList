@@ -45,7 +45,7 @@ namespace ToDoList.Web.Areas.User.Controllers
                  return this.View(newTask);
             }
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
-            Guard.WhenArgument(newTask.ExpirationDate, "newTask.expirationDate").IsLessThan(DateTime.Today).Throw();
+            Guard.WhenArgument(newTask.ExpirationDate, "newTask.expirationDate").IsLessThan(DateTime.Today.Date).Throw();
 
             var usedList = this.toDoListModelService.GetListById(Guid.Parse(id));
 

@@ -1,0 +1,11 @@
+﻿@model ToDoList.Web.Models.TaskViewModels.TaskViewModel
+
+@using (Html.BeginForm("Done", "Task", new { Area = "User", id = Model.Id }))
+{
+    string compleated = "Done";
+    if (Model.IsDone == true)
+    {
+        compleated = "unDone";
+    }
+    <input type="submit" value=@compleated class="btn btn-group-sm btn-success" />
+}

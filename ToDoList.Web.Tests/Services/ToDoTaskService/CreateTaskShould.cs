@@ -17,9 +17,10 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
 
-            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUnitOfWork.Object);
+            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
             var category = CategoryTypes.Errands;
             var priority = PriorityTypes.Low;
@@ -38,10 +39,12 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
             var mockedToDoListModel = new Mock<ToDoListModel>();
 
-            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUnitOfWork.Object);
+            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
+
 
             mockedToDoListModel.Setup(l => l.Tasks.Add(It.IsAny<ToDoListTask>()));
 
@@ -62,10 +65,11 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
             var mockedToDoListModel = new Mock<ToDoListModel>();
 
-            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUnitOfWork.Object);
+            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
             mockedToDoListModel.Setup(l => l.Tasks.Add(It.IsAny<ToDoListTask>()));
 

@@ -9,16 +9,17 @@ using ToDoList.Services;
 namespace ToDoList.Web.Tests.Services.ToDoTaskService
 {
     [TestFixture]
-    public  class FindTaskByIdShould
+    public class FindTaskByIdShould
     {
         [Test]
         public void Throw_WheTaskIdIsNull()
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
 
-            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUnitOfWork.Object);
+            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
             //Act & Assert
 
@@ -33,9 +34,10 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
 
-            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUnitOfWork.Object);
+            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
             //Act
             taskService.FindTaskById(Guid.NewGuid());
@@ -49,14 +51,15 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
 
             mockedToDoListTaskRepository.Setup(r => r.GetById(It.IsAny<Guid>())).Returns(new ToDoListTask());
 
-            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUnitOfWork.Object);
+            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
             //Act
-            var actualResult=taskService.FindTaskById(Guid.NewGuid());
+            var actualResult = taskService.FindTaskById(Guid.NewGuid());
 
             //Assert
             Assert.That(actualResult, Is.InstanceOf<ToDoListTask>());
@@ -67,13 +70,14 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         {
             //Arrange
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
 
-            var expectedTask = new ToDoListTask() {Task="sample task" };
+            var expectedTask = new ToDoListTask() { Task = "sample task" };
 
             mockedToDoListTaskRepository.Setup(r => r.GetById(It.IsAny<Guid>())).Returns(expectedTask);
 
-            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUnitOfWork.Object);
+            var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
 
             //Act
             var actualResult = taskService.FindTaskById(Guid.NewGuid());

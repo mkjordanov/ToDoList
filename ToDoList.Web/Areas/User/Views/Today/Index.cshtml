@@ -1,16 +1,11 @@
-﻿@model ToDoList.Web.Models.TaskViewModels.ToDoListViewModel
+﻿@model IEnumerable<ToDoList.Web.Models.TaskViewModels.TaskViewModel>
 
 @{
-    ViewBag.Title = "Tasks";
+    ViewBag.Title = "Index";
 }
 
-<h2>Tasks</h2>
-@if (!User.IsInRole("Admin"))
-{
-    <p>
-        @Html.ActionLink("Create New", "Create", new { id = Model.Id })
-    </p>
-}
+<h2>Tsday's tasks</h2>
+
 <table class="table">
     <tr>
         <th>
@@ -31,7 +26,7 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model.Tasks.Where(t => t.ExpirationDate >= DateTime.Now.Date))
+    @foreach (var item in Model)
     {
         <tr>
             <td>
@@ -50,7 +45,7 @@
                 @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
-                @using (Html.BeginForm("Done", "Task", new { Area="User", id = item.Id }))
+                @using (Html.BeginForm("Done", "Today", new { Area = "User", id = item.Id }))
                 {
                     string compleated = "Done";
                     if (item.IsDone == true)
@@ -60,10 +55,7 @@
                     <input type="submit" value=@compleated class="btn btn-group-sm btn-success" />
                 }
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+            
         </tr>
     }
 

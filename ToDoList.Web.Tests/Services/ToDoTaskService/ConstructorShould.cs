@@ -16,11 +16,13 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         {
             //Arrange
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
+
 
             //Act & Assert
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new ToDoListTaskService(null, mockedUnitOfWork.Object);
+                new ToDoListTaskService(null,mockedUserRepository.Object, mockedUnitOfWork.Object);
             });
         }
 
@@ -28,12 +30,27 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
         public void Throw_WhenUnitOfWorkIsNull()
         {
             //Arrange
+            var mockedUserRepository = new Mock<IEFGenericRepository<ApplicationUser>>();
             var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
-            
+
             //Act & Assert
             Assert.Throws<ArgumentNullException>(() =>
             {
-                new ToDoListTaskService(mockedToDoListTaskRepository.Object, null);
+                new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUserRepository.Object,null);
+            });
+        }
+
+        [Test]
+        public void Throw_WhenUserRepositoryIsNull()
+        {
+            //Arrange
+            var mockedUnitOfWork = new Mock<IUnitOfWork>();
+            var mockedToDoListTaskRepository = new Mock<IEFGenericRepository<ToDoListTask>>();
+
+            //Act & Assert
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                new ToDoListTaskService(mockedToDoListTaskRepository.Object, null, mockedUnitOfWork.Object);
             });
         }
     }

@@ -16,19 +16,22 @@ namespace ToDoList.Services
     public class ToDoListTaskService : IToDoListTaskService
     {
         private readonly IEFGenericRepository<ToDoListTask> toDoListTaskRepository;
+        private readonly IEFGenericRepository<ApplicationUser> userRepository;
         private readonly IUnitOfWork unitOfWork;
-        public ToDoListTaskService(IEFGenericRepository<ToDoListTask> toDoListTaskRepository, IUnitOfWork unitOfWork)
+        public ToDoListTaskService(IEFGenericRepository<ToDoListTask> toDoListTaskRepository, IEFGenericRepository<ApplicationUser> userRepository, IUnitOfWork unitOfWork)
         {
-            Guard.WhenArgument(toDoListTaskRepository, "To-Do ListTask Repository").IsNull().Throw();
+            Guard.WhenArgument(toDoListTaskRepository, "To-Do-List-Task Repository").IsNull().Throw();
+            Guard.WhenArgument(userRepository, "userRepository").IsNull().Throw();
             Guard.WhenArgument(unitOfWork, "Unit of work").IsNull().Throw();
 
             this.toDoListTaskRepository = toDoListTaskRepository;
+            this.userRepository = userRepository;
             this.unitOfWork = unitOfWork;
         }
         public void CreateTask(ToDoListModel toDoList, CategoryTypes category, PriorityTypes priority, DateTime expirationDate, string task)
         {
             Guard.WhenArgument(toDoList, "To-Do List").IsNull().Throw();
-            Guard.WhenArgument(expirationDate, "Expiration Date").IsLessThan(DateTime.Now).Throw();
+            Guard.WhenArgument(expirationDate, "Expiration Date").IsLessThan(DateTime.Now.Date).Throw();
             Guard.WhenArgument(task, "Task").IsNullOrEmpty().Throw();
 
 
@@ -60,9 +63,11 @@ namespace ToDoList.Services
             return this.toDoListTaskRepository.GetById(taskId);
         }
 
-        public IEnumerable<ToDoListTask> GetAll()
+        public IEnumerable<ToDoListTask> GetAllByUserId(object id)
         {
-            throw new NotImplementedException();
+            var userLists = this.userRepository.GetById(id).ToDoLists;
+            var tasks = userLists.SelectMany(l => l.Tasks.Where(t => t.ExpirationDate == DateTime.Now.Date));
+            return tasks;
         }
 
         public IEnumerable<ToDoListTask> GetAllByUserAndCategory(object id, CategoryTypes category)
@@ -75,10 +80,6 @@ namespace ToDoList.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ToDoListTask> GetAllByUserId(object id)
-        {
-            throw new NotImplementedException();
-        }
 
         public void UpdateTask(ToDoListTask task)
         {
