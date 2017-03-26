@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ToDoList.Models;
+using ToDoList.Services.Models;
 
 namespace ToDoList.Services.Contracts
 {

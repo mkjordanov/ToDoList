@@ -5,7 +5,7 @@ using TestStack.FluentMVCTesting;
 using ToDoList.Models;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.Admin.Controllers;
-using ToDoList.Web.Areas.User.Models;
+using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Tests.Controllers.UserControllerTests
 {

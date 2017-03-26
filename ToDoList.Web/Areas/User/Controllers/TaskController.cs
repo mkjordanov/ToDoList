@@ -27,7 +27,8 @@ namespace ToDoList.Web.Areas.User.Controllers
 
             TempData["ListId"] = id;
             var selectedList = this.toDoListModelService.GetListById(Guid.Parse(id));
-            return this.View(selectedList);
+            var mappedList = new ToDoListViewModel(selectedList);
+            return this.View(mappedList);
         }
 
         [HttpGet]
@@ -58,8 +59,8 @@ namespace ToDoList.Web.Areas.User.Controllers
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
 
             var task = this.taskService.FindTaskById(Guid.Parse(id));
-
-            return this.View(task);
+            var mappedTask = new TaskViewModel(task);
+            return this.View(mappedTask);
         }
 
         [HttpPost]
@@ -81,8 +82,8 @@ namespace ToDoList.Web.Areas.User.Controllers
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
 
             var task = this.taskService.FindTaskById(Guid.Parse(id));
-
-            return this.View(task);
+            var mappedTask = new TaskViewModel(task);
+            return this.View(mappedTask);
         }
 
         [HttpPost]

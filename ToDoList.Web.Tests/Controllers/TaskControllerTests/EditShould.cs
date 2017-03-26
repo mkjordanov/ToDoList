@@ -3,8 +3,10 @@ using NUnit.Framework;
 using System;
 using TestStack.FluentMVCTesting;
 using ToDoList.Models;
+using ToDoList.Models.Enums;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.User.Controllers;
+using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Tests.Controllers.TaskControllerTests
 {
@@ -44,13 +46,18 @@ namespace ToDoList.Web.Tests.Controllers.TaskControllerTests
             var mokcedToDoListModelService = new Mock<IToDoListModelService>();
             var mokcedTaskService = new Mock<IToDoListTaskService>();
 
+            var taskId = Guid.NewGuid();
+            var list = new ToDoListModel();
+            var task = new ToDoListTask() { Id = taskId, ToDoList = list };
+            mokcedTaskService.Setup(s => s.FindTaskById(taskId)).Returns(task);
+
             var controller = new TaskController(mokcedToDoListModelService.Object, mokcedTaskService.Object);
 
             //Act
-            controller.Edit(Guid.NewGuid().ToString());
+            controller.Edit(taskId.ToString());
 
             //Assert
-            mokcedTaskService.Verify(u => u.FindTaskById(It.IsAny<Guid>()), Times.Once);
+            mokcedTaskService.Verify(u => u.FindTaskById(taskId), Times.Once);
         }
 
         [Test]
@@ -60,10 +67,15 @@ namespace ToDoList.Web.Tests.Controllers.TaskControllerTests
             var mokcedToDoListModelService = new Mock<IToDoListModelService>();
             var mokcedTaskService = new Mock<IToDoListTaskService>();
 
+            var taskId = Guid.NewGuid();
+            var list = new ToDoListModel();
+            var task = new ToDoListTask() { Id = taskId, ToDoList = list };
+            mokcedTaskService.Setup(s => s.FindTaskById(taskId)).Returns(task);
+
             var controller = new TaskController(mokcedToDoListModelService.Object, mokcedTaskService.Object);
 
             //Act&Assert
-            controller.WithCallTo(c => c.Edit(Guid.NewGuid().ToString())).ShouldRenderDefaultView();
+            controller.WithCallTo(c => c.Edit(taskId.ToString())).ShouldRenderDefaultView();
         }
 
         [Test]
@@ -72,17 +84,35 @@ namespace ToDoList.Web.Tests.Controllers.TaskControllerTests
             //Arrange
             var mokcedToDoListModelService = new Mock<IToDoListModelService>();
             var mokcedTaskService = new Mock<IToDoListTaskService>();
-            var mockedTask = new Mock<ToDoListTask>();
 
-            var id = Guid.NewGuid();
-            mockedTask.Object.Id = id;
-
-            mokcedTaskService.Setup(s => s.FindTaskById(id)).Returns(mockedTask.Object);
+            var taskId = Guid.NewGuid();
+            var list = new ToDoListModel();
+            var task = new ToDoListTask()
+            {
+                Id = taskId,
+                Task = "sample name",
+                Category = CategoryTypes.Entertainment,
+                ExpirationDate = DateTime.Now.AddDays(1),
+                IsDone = false,
+                Priority=PriorityTypes.High,
+                ToDoList = list
+            };
+            mokcedTaskService.Setup(s => s.FindTaskById(taskId)).Returns(task);
 
             var controller = new TaskController(mokcedToDoListModelService.Object, mokcedTaskService.Object);
 
             //Act&Assert
-            controller.WithCallTo(c => c.Edit(id.ToString())).ShouldRenderDefaultView().WithModel(mockedTask.Object);
+            controller.WithCallTo(c => c.Edit(taskId.ToString()))
+                .ShouldRenderDefaultView()
+                .WithModel<TaskViewModel>(actualTask =>
+                {
+                    Assert.AreEqual(task.Id, actualTask.Id);
+                    Assert.AreEqual(task.Task, actualTask.Task);
+                    Assert.AreEqual(task.IsDone, actualTask.IsDone);
+                    Assert.AreEqual(task.Priority, actualTask.Priority);
+                    Assert.AreEqual(task.ExpirationDate, actualTask.ExpirationDate);
+                    Assert.AreEqual(task.Category, actualTask.Category);
+                });
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using ToDoList.Services.Contracts;
-using ToDoList.Web.Areas.User.Models;
+using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Areas.Admin.Controllers
 {

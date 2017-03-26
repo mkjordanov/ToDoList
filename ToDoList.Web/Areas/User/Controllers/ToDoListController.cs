@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using ToDoList.Services.Contracts;
 using Microsoft.AspNet.Identity;
 using ToDoList.Web.Models.TaskViewModels;
+using System.Linq;
 
 namespace ToDoList.Web.Areas.User.Controllers
 {
@@ -58,7 +59,8 @@ namespace ToDoList.Web.Areas.User.Controllers
             }
             var a = this.toDoListModelService.GetAllByUserId(userId);
             var currentUser = this.userService.GetUserById(userId);
-            return this.View(currentUser.ToDoLists);
+            var mappedCurrentUserList = currentUser.ToDoLists.Select(list => new ToDoListViewModel(list)).ToList();
+            return this.View(mappedCurrentUserList);
         }
 
         [HttpGet]
@@ -67,7 +69,8 @@ namespace ToDoList.Web.Areas.User.Controllers
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
 
             var list = this.toDoListModelService.GetListById(Guid.Parse(id));
-            return this.View(list);
+            var mappedList = new ToDoListViewModel(list); 
+            return this.View(mappedList);
         }
 
         [HttpPost]
@@ -87,7 +90,8 @@ namespace ToDoList.Web.Areas.User.Controllers
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
 
             var list = this.toDoListModelService.GetListById(Guid.Parse(id));
-            return this.View(list);
+            var mappedList = new ToDoListViewModel(list);
+            return this.View(mappedList);
         }
 
         [HttpPost]

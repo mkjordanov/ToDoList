@@ -1,10 +1,13 @@
 ﻿using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using TestStack.FluentMVCTesting;
 using ToDoList.Models;
+using ToDoList.Models.Enums;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.User.Controllers;
+using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
 {
@@ -42,13 +45,18 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             var mokcedToDoListModelService = new Mock<IToDoListModelService>();
             var mokcedUserService = new Mock<IUserService>();
 
+            var listId = Guid.NewGuid();
+            var user = new ApplicationUser();
+            var list = new ToDoListModel() { Id = listId, ApplicationUserId = user };
+            mokcedToDoListModelService.Setup(s => s.GetListById(listId)).Returns(list);
+
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
 
             //Act
-            controller.Delete(Guid.NewGuid().ToString());
+            controller.Delete(listId.ToString());
 
             //Assert
-            mokcedToDoListModelService.Verify(u => u.GetListById(It.IsAny<Guid>()), Times.Once);
+            mokcedToDoListModelService.Verify(u => u.GetListById(listId), Times.Once);
         }
 
         [Test]
@@ -58,10 +66,15 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             var mokcedToDoListModelService = new Mock<IToDoListModelService>();
             var mokcedUserService = new Mock<IUserService>();
 
+            var listId = Guid.NewGuid();
+            var user = new ApplicationUser();
+            var list = new ToDoListModel() { Id = listId, ApplicationUserId= user };
+            mokcedToDoListModelService.Setup(s => s.GetListById(listId)).Returns(list);
+
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
 
             //Act & Assert
-            controller.WithCallTo(c => c.Delete(Guid.NewGuid().ToString())).ShouldRenderDefaultView();
+            controller.WithCallTo(c => c.Delete(listId.ToString())).ShouldRenderDefaultView();
         }
 
         [Test]
@@ -70,20 +83,37 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             //Arrange
             var mokcedToDoListModelService = new Mock<IToDoListModelService>();
             var mokcedUserService = new Mock<IUserService>();
-            // var mockedlist = new Mock<ToDoListModel>();
-            var list =new ToDoListModel();
-            var id = Guid.NewGuid();
-            list.Id = id;
 
-            mokcedToDoListModelService.Setup(s => s.GetListById(id)).Returns(list);
+            var listId = Guid.NewGuid();
+            var user = new ApplicationUser();
+            var list = new ToDoListModel()
+            {
+                Id = listId,
+                Category = CategoryTypes.Entertainment,
+                Date = DateTime.Now,
+                IsPublic = false,
+                Name = "SampleName",
+                Tasks = new List<ToDoListTask>(),
+                ApplicationUserId = user
+            };
+
+            mokcedToDoListModelService.Setup(s => s.GetListById(listId)).Returns(list);
 
             var controller = new ToDoListController(mokcedToDoListModelService.Object, mokcedUserService.Object);
 
             //Act & Assert
             controller
-                .WithCallTo(c => c.Delete(id.ToString()))
+                .WithCallTo(c => c.Delete(listId.ToString()))
                 .ShouldRenderDefaultView()
-                .WithModel(list);
+                .WithModel<ToDoListViewModel>(actualList =>
+               {
+                   Assert.AreEqual(list.Id, actualList.Id);
+                   Assert.AreEqual(list.Category, actualList.Category);
+                   Assert.AreEqual(list.Date, actualList.Date);
+                   Assert.AreEqual(list.IsPublic, actualList.IsPublic);
+                   Assert.AreEqual(list.Name, actualList.Name);
+                   Assert.AreEqual(list.Tasks, actualList.Tasks);
+               });
         }
 
     }

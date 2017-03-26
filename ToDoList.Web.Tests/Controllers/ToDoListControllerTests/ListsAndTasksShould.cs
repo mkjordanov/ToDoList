@@ -1,12 +1,15 @@
 ﻿using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 using ToDoList.Models;
+using ToDoList.Models.Enums;
 using ToDoList.Services.Contracts;
 using ToDoList.Web.Areas.User.Controllers;
+using ToDoList.Web.Models.TaskViewModels;
 
 namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
 {
@@ -81,8 +84,29 @@ namespace ToDoList.Web.Tests.Controllers.ToDoListControllerTests
             controllerContext.SetupGet(x => x.HttpContext.User).Returns(principal.Object);
             controller.ControllerContext = controllerContext.Object;
 
+            var userId = Guid.NewGuid();
+            var tasks = new List<ToDoListTask>();
+            var userList = new List<ToDoListModel>()
+            {
+                new ToDoListModel() {Name="list 1", Tasks=tasks, ApplicationUserId=user},
+                new ToDoListModel() {Name="list 2", Tasks=tasks, ApplicationUserId=user},
+                new ToDoListModel() {Name="list 3", Tasks=tasks, ApplicationUserId=user}
+            };
+            user.Id = userId.ToString();
+            user.ToDoLists = userList;
+
+            mokcedUserService.Setup(s => s.GetUserById(userId)).Returns(user);
+
             //Act & Assert
-            controller.WithCallTo(c => c.ListsAndTasks(It.IsAny<string>())).ShouldRenderDefaultView().WithModel(user.ToDoLists);
+            controller.WithCallTo(c => c.ListsAndTasks(userId.ToString()))
+                .ShouldRenderDefaultView()
+                .WithModel<List<ToDoListViewModel>>(actualList =>
+            {
+                Assert.AreEqual(actualList.Count, userList.Count);
+                Assert.AreEqual(actualList[0].Name, userList[0].Name);
+                Assert.AreEqual(actualList[1].Name, userList[1].Name);
+                Assert.AreEqual(actualList[2].Name, userList[2].Name);
+            }); ;
         }
         //[Test]
         //public void GetUserIdFromUrl_WhenLoggedAsAdmin()
