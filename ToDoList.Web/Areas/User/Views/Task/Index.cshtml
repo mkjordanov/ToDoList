@@ -50,9 +50,8 @@
                 @Html.DisplayFor(modelItem => item.Priority)
             </td>
             <td>
-                @using (Html.BeginForm("Done", "Task", new { Area="User", id = item.Id }))
+                @using (Html.BeginForm("Done", "Task", new { id = item.Id }))
                 {
-                    Html.AntiForgeryToken();
                     string compleated = "Done";
                     if (item.IsDone == true)
                     {

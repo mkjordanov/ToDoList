@@ -114,7 +114,6 @@ namespace ToDoList.Web.Areas.User.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Done(string id)
         {
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
