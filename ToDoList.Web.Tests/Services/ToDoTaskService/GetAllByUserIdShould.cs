@@ -42,25 +42,6 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
             var taskService = new ToDoListTaskService(mockedToDoListTaskRepository.Object, mockedUserRepository.Object, mockedUnitOfWork.Object);
             var userId = Guid.NewGuid();
 
-
-            //var tasks = new List<ToDoListTask>()
-            //{
-            //    new ToDoListTask() { Task="task 1"},
-            //    new ToDoListTask() { Task="task 2"},
-            //    new ToDoListTask() { Task="task 3"}
-            //};
-
-            // var list = new ToDoListModel() {  };
-
-            //var lists = new List<ToDoListModel>();
-            //lists.Add(list);
-
-            //var user = new ApplicationUser()
-            //{
-            //    Id = userId.ToString(),
-            //    ToDoLists = lists
-            //};
-
             mockedUserRepository.Setup(r => r.GetById(It.IsAny<Guid>())).Returns(new ApplicationUser());
 
             //Act
@@ -79,24 +60,6 @@ namespace ToDoList.Web.Tests.Services.ToDoTaskService
             var mockedUnitOfWork = new Mock<IUnitOfWork>();
 
             var userId = Guid.NewGuid();
-
-            //var tasks = new List<ToDoListTask>()
-            //{
-            //    new ToDoListTask() { Task="task 1"},
-            //    new ToDoListTask() { Task="task 2"},
-            //    new ToDoListTask() { Task="task 3"}
-            //};
-
-            //var list = new ToDoListModel() { };
-
-            //var lists = new List<ToDoListModel>();
-            //lists.Add(list);
-
-            //var user = new ApplicationUser()
-            //{
-            //    Id = userId.ToString(),
-            //    ToDoLists = lists
-            //};
 
             mockedUserRepository.Setup(r => r.GetById(userId)).Returns(new ApplicationUser());
 

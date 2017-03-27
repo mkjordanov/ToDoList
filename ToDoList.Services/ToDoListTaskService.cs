@@ -75,16 +75,6 @@ namespace ToDoList.Services
         {
             return this.GetAllByUserId(userId).Where(t => t.Task.ToLower().Contains(searchTerm.ToLower()));
         }
-        public IEnumerable<ToDoListTask> GetAllByUserAndCategory(object id, CategoryTypes category)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<ToDoListTask> GetAllByUserAndPriority(object id, PriorityTypes priority)
-        {
-            throw new NotImplementedException();
-        }
-
 
         public void UpdateTask(ToDoListTask task)
         {

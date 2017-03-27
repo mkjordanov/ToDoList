@@ -124,6 +124,7 @@
     <Compile Include="Controllers\TaskControllerTests\EditTaskShould.cs" />
     <Compile Include="Controllers\TaskControllerTests\IndexShould.cs" />
     <Compile Include="Controllers\TodayControllerTests\ConstructorShould.cs" />
+    <Compile Include="Controllers\TodayControllerTests\FilteredTasksByNameShould.cs" />
     <Compile Include="Controllers\TodayControllerTests\IndexShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\CreateGetShould.cs" />
     <Compile Include="Controllers\ToDoListControllerTests\CreatePostShould.cs" />

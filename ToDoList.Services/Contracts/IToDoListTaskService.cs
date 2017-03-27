@@ -11,8 +11,6 @@ namespace ToDoList.Services.Contracts
     public interface IToDoListTaskService
     {
         IEnumerable<ToDoListTask> GetAllByUserId(object id);
-        IEnumerable<ToDoListTask> GetAllByUserAndCategory(object id, CategoryTypes category);
-        IEnumerable<ToDoListTask> GetAllByUserAndPriority(object id, PriorityTypes priority);
         void CreateTask(ToDoListModel toDoList, CategoryTypes category, PriorityTypes priority, DateTime expirationDate, string task);
         ToDoListTask FindTaskById(object taskId);
         void DeleteTask(ToDoListTask task);
