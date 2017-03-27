@@ -17,6 +17,6 @@ namespace ToDoList.Services.Contracts
         ToDoListTask FindTaskById(object taskId);
         void DeleteTask(ToDoListTask task);
         void UpdateTask(ToDoListTask task);
-
+        IEnumerable<ToDoListTask> GetTasksByName(string searchTerm, string userId);
     }
 }

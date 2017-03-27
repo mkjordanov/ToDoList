@@ -280,7 +280,7 @@
     <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
     <Content Include="Areas\User\Views\Today\Index.cshtml" />
-    <Content Include="Areas\User\Views\Shared\TaskDoneButtonPartialView.cshtml" />
+    <Content Include="Areas\User\Views\Shared\SearchResultPartial.cshtml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\Datepicker\Datepicker.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />

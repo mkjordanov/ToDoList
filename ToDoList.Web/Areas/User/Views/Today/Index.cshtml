@@ -6,57 +6,26 @@
 
 <h2>Tsday's tasks</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            Task
-        </th>
-        <th>
-            Expiration Date
-        </th>
-        <th>
-            Compleated
-        </th>
-        <th>
-            Category
-        </th>
-        <th>
-            Priority
-        </th>
-        <th></th>
-    </tr>
+@using (Ajax.BeginForm("FilteredTasksByName", new {}, new AjaxOptions()
+{
+    HttpMethod = "Post",
+    UpdateTargetId = "Tasks",
+    InsertionMode = InsertionMode.Replace,
+}, new { id = "ajaxForm" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="text" name="searchTerm" />
+}
+<div id="Tasks">
+    @Html.Partial("SearchResultPartial");
+</div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Task)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpirationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Priority)
-            </td>
-            <td>
-                @using (Html.BeginForm("Done", "Today", new { Area = "User", id = item.Id }))
-                {
-                    string compleated = "Done";
-                    if (item.IsDone == true)
-                    {
-                        compleated = "unDone";
-                    }
-                    <input type="submit" value=@compleated class="btn btn-group-sm btn-success" />
-                }
-            </td>
-            
-        </tr>
-    }
-
-</table>
+@section scripts {
+    <script>
+        $(function () {
+            $('[name="searchTerm"]').keyup(function () {
+                $('#ajaxForm').submit()
+            })
+        })
+    </script>
+}

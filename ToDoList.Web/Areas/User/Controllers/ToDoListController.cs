@@ -29,6 +29,7 @@ namespace ToDoList.Web.Areas.User.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ToDoListViewModel newList)
         {
             if (!ModelState.IsValid)
@@ -75,6 +76,7 @@ namespace ToDoList.Web.Areas.User.Controllers
 
         [HttpPost]
         [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteList(string id)
         {
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
@@ -95,6 +97,7 @@ namespace ToDoList.Web.Areas.User.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionName("Edit")]
         public ActionResult EditList(string id, ToDoListViewModel editList)
         {

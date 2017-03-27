@@ -19,12 +19,31 @@ namespace ToDoList.Web.Areas.User.Controllers
             Guard.WhenArgument(taskService, "taskService").IsNull().Throw();
             this.taskService = taskService;
         }
+
+        [HttpGet]
         public ActionResult Index()
         {
             var currentUserId= User.Identity.GetUserId();
             var allTasksOfUser = this.taskService.GetAllByUserId(currentUserId);
             var mappedTasks = allTasksOfUser.Select(t => new TaskViewModel(t));
-            return View(mappedTasks);
+            return this.View(mappedTasks);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult FilteredTasksByName(string searchTerm)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return this.Index();
+            }
+            else
+            {
+                var currentUserId = User.Identity.GetUserId();
+                var filteredTasks = this.taskService.GetTasksByName(searchTerm, currentUserId).Select(t => new TaskViewModel(t)).ToList();
+
+                return this.PartialView("SearchResultPartial", filteredTasks);
+            }
         }
     }
 }

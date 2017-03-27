@@ -71,7 +71,10 @@ namespace ToDoList.Services
             var tasks = userLists.SelectMany(l => l.Tasks.Where(t => t.ExpirationDate == DateTime.Now.Date));
             return tasks.ToList();
         }
-
+        public IEnumerable<ToDoListTask> GetTasksByName(string searchTerm, string userId)
+        {
+            return this.GetAllByUserId(userId).Where(t => t.Task.ToLower().Contains(searchTerm.ToLower()));
+        }
         public IEnumerable<ToDoListTask> GetAllByUserAndCategory(object id, CategoryTypes category)
         {
             throw new NotImplementedException();
@@ -90,5 +93,7 @@ namespace ToDoList.Services
             this.toDoListTaskRepository.Update(task);
             this.unitOfWork.Commit();
         }
+
+        
     }
 }

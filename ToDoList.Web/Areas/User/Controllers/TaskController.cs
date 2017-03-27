@@ -38,6 +38,7 @@ namespace ToDoList.Web.Areas.User.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(string id, TaskViewModel newTask)
         {
             if (!ModelState.IsValid)
@@ -65,6 +66,7 @@ namespace ToDoList.Web.Areas.User.Controllers
 
         [HttpPost]
         [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public ActionResult DeleteTask(string id)
         {
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
@@ -88,6 +90,7 @@ namespace ToDoList.Web.Areas.User.Controllers
 
         [HttpPost]
         [ActionName("Edit")]
+        [ValidateAntiForgeryToken]
         public ActionResult EditTask(string id, TaskViewModel editTask)
         {
             if (!ModelState.IsValid)
@@ -111,6 +114,7 @@ namespace ToDoList.Web.Areas.User.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Done(string id)
         {
             Guard.WhenArgument(id, "id").IsNullOrEmpty().Throw();
